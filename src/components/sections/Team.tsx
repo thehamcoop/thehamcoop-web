@@ -14,7 +14,7 @@ const TEAM_MEMBERS = [
     ],
   },
   {
-    name: "강연우",
+    name: "박주현",
     role: "COO",
     credentials: [
       "자사 자동화시스템 총괄",
@@ -23,7 +23,7 @@ const TEAM_MEMBERS = [
     ],
   },
   {
-    name: "김형주",
+    name: "서종진",
     role: "CTO",
     credentials: [
       "제 18회 임베디드SW경진대회",
@@ -34,7 +34,7 @@ const TEAM_MEMBERS = [
     ],
   },
   {
-    name: "안승원",
+    name: "이상현",
     role: "CCO",
     credentials: [
       "패스트캠퍼스 1위 강의 런칭",

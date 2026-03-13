@@ -1,87 +1,68 @@
 "use client";
 
 import { motion } from "framer-motion";
-import SectionContainer from "@/components/common/SectionContainer";
-import Button from "@/components/common/Button";
-import { HERO } from "@/constants/site";
 
 export default function Hero() {
   return (
-    <SectionContainer className="flex min-h-screen items-center pt-20">
-      <div className="flex w-full flex-col items-center text-center">
-        {/* Badge */}
-        <motion.div
+    <section className="relative flex min-h-screen items-start justify-center overflow-hidden bg-text-primary pt-32 md:pt-40">
+      {/* 배경 빗각 THEHAMCOOP 텍스트 */}
+      <div
+        className="pointer-events-none absolute top-[50%] left-0 right-0 flex justify-center"
+        aria-hidden="true"
+      >
+        <span
+          className="whitespace-nowrap text-[14.8vw] leading-none font-black text-[#5BC8C8] select-none"
+          style={{ transform: "rotate(-10deg)" }}
+        >
+          THEHAMCOOP
+        </span>
+      </div>
+
+      {/* 메인 콘텐츠 */}
+      <div className="relative z-10 flex flex-col items-center text-center">
+        {/* 소제목 */}
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-8 inline-flex items-center gap-2 rounded-full border border-accent-purple/30 bg-accent-purple/10 px-4 py-2 text-sm text-accent-purple"
+          className="mb-4 text-base font-medium text-black md:text-lg"
         >
-          <span className="h-2 w-2 rounded-full bg-accent-purple" />
-          {HERO.badge}
-        </motion.div>
+          무책임한 업체들 때문에 많이 힘드셨죠?
+        </motion.p>
 
-        {/* Main headline */}
+        {/* 메인 타이틀 */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="mb-6 text-3xl font-bold leading-tight md:text-5xl lg:text-6xl"
+          className="mb-10 text-3xl leading-tight font-bold text-black md:text-5xl lg:text-6xl"
         >
-          큰 돈 내고 개발 외주 맡기기
+          창업·제품 기획·교육·판매·투자까지
           <br />
-          <span className="gradient-text">불안하셨죠?</span>
+          전문가와 함께 진짜 비즈니스를 시작하세요
         </motion.h1>
 
-        {/* Sub headline */}
-        <motion.p
+        {/* CTA 버튼 */}
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="mb-12 max-w-2xl text-lg leading-relaxed text-text-secondary md:text-xl"
-        >
-          2026 AI 과기부장관상 수상 개발팀과
-          <br className="hidden sm:block" />
-          진짜 비즈니스를 시작하세요
-        </motion.p>
-
-        {/* CTA buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.6 }}
           className="flex flex-col gap-4 sm:flex-row"
         >
-          <Button variant="primary" size="lg" href="#contact">
-            {HERO.cta.primary}
-          </Button>
-          <Button variant="outline" size="lg" href="#portfolio">
-            {HERO.cta.secondary}
-          </Button>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="mt-20"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="flex flex-col items-center gap-2 text-text-muted"
+          <a
+            href="#about"
+            className="rounded-full border border-gray-300 bg-white px-8 py-4 text-base font-semibold text-gray-700 transition-colors hover:bg-gray-50"
           >
-            <span className="text-xs">Scroll Down</span>
-            <div className="h-8 w-5 rounded-full border border-text-muted p-1">
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="h-2 w-1.5 rounded-full bg-text-muted"
-              />
-            </div>
-          </motion.div>
+            회사 소개서
+          </a>
+          <a
+            href="#contact"
+            className="rounded-full bg-linear-to-r from-accent-purple to-accent-blue px-8 py-4 text-base font-semibold text-white transition-shadow hover:shadow-lg hover:shadow-accent-purple/25"
+          >
+            상담하기
+          </a>
         </motion.div>
       </div>
-    </SectionContainer>
+    </section>
   );
 }
