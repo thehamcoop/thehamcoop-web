@@ -32,11 +32,13 @@ export default function Portfolio() {
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 {/* Fallback gradient when image is missing */}
-                <div className="absolute inset-0 bg-gradient-to-br from-accent-purple/20 to-accent-blue/20" />
+                <div className="absolute inset-0 bg-linear-to-br from-accent-purple/20 to-accent-blue/20" />
               </div>
               {/* Content */}
               <div className="p-5">
-                <span className="text-xs text-accent-purple">{item.category}</span>
+                <span className="text-xs text-accent-purple">
+                  {item.category}
+                </span>
                 <h3 className="mt-1 text-lg font-semibold">{item.title}</h3>
                 <p className="mt-1 text-sm text-text-secondary">
                   {item.description}

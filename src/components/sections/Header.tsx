@@ -9,7 +9,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-border-default/50 bg-bg-primary/80 backdrop-blur-lg">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-12">
+      <div className="mx-auto flex items-center justify-between px-6 py-4 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
         <a href="#" className="text-xl font-bold">
           <span className="gradient-text">{SITE.name}</span>
         </a>
