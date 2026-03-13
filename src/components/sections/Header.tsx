@@ -8,30 +8,41 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-border-default/50 bg-bg-primary/80 backdrop-blur-lg">
+    <header className="fixed top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg">
       <div className="mx-auto flex items-center justify-between px-6 py-4 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-        <a href="#" className="text-xl font-bold">
-          <span className="gradient-text">{SITE.name}</span>
-        </a>
+        <div className="flex items-center gap-8">
+          <a href="#" className="text-xl font-bold">
+            <span className="text-accent-purple">{SITE.name}</span>
+          </a>
 
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm text-text-secondary transition-colors hover:text-text-primary"
-            >
-              {link.label}
-            </a>
-          ))}
+          {/* Desktop nav */}
+          <nav className="hidden items-center gap-6 md:flex">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm font-semibold text-gray-600 transition-colors hover:text-gray-900"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+
+        <div className="hidden items-center gap-3 md:flex">
+          <a
+            href="#about"
+            className="rounded-lg border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+          >
+            회사 소개
+          </a>
           <a
             href="#contact"
             className="rounded-lg bg-linear-to-r from-accent-purple to-accent-blue px-5 py-2 text-sm font-medium text-white transition-shadow hover:shadow-lg hover:shadow-accent-purple/25"
           >
             상담 신청
           </a>
-        </nav>
+        </div>
 
         {/* Mobile hamburger */}
         <button
@@ -40,13 +51,13 @@ export default function Header() {
           aria-label="메뉴 열기"
         >
           <span
-            className={`h-0.5 w-6 bg-text-primary transition-transform ${isMenuOpen ? "translate-y-2 rotate-45" : ""}`}
+            className={`h-0.5 w-6 bg-gray-900 transition-transform ${isMenuOpen ? "translate-y-2 rotate-45" : ""}`}
           />
           <span
-            className={`h-0.5 w-6 bg-text-primary transition-opacity ${isMenuOpen ? "opacity-0" : ""}`}
+            className={`h-0.5 w-6 bg-gray-900 transition-opacity ${isMenuOpen ? "opacity-0" : ""}`}
           />
           <span
-            className={`h-0.5 w-6 bg-text-primary transition-transform ${isMenuOpen ? "-translate-y-2 -rotate-45" : ""}`}
+            className={`h-0.5 w-6 bg-gray-900 transition-transform ${isMenuOpen ? "-translate-y-2 -rotate-45" : ""}`}
           />
         </button>
       </div>
@@ -58,7 +69,7 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="border-t border-border-default bg-bg-primary md:hidden"
+            className="border-t border-gray-200 bg-white md:hidden"
           >
             <div className="flex flex-col gap-4 px-6 py-6">
               {NAV_LINKS.map((link) => (
@@ -66,11 +77,18 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className="text-text-secondary transition-colors hover:text-text-primary"
+                  className="text-gray-600 transition-colors hover:text-gray-900"
                 >
                   {link.label}
                 </a>
               ))}
+              <a
+                href="#about"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-gray-600 transition-colors hover:text-gray-900"
+              >
+                회사 소개
+              </a>
             </div>
           </motion.nav>
         )}
