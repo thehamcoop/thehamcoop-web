@@ -82,8 +82,43 @@ export default function Process() {
         })}
       </div>
 
+      {/* 태블릿: 2x2 그리드 */}
+      <div className="hidden grid-cols-2 gap-4 md:grid lg:hidden">
+        {PROCESS_CARDS.map((card, index) => {
+          const isActive = index === activeIndex;
+          return (
+            <motion.div
+              key={index}
+              animate={{
+                backgroundColor: isActive ? "#6C5CE7" : "#FFFFFF",
+              }}
+              transition={{ duration: 0.4 }}
+              className="h-64 cursor-pointer rounded-2xl p-6"
+              onClick={() => setActiveIndex(index)}
+            >
+              <h3
+                className="text-xl leading-tight font-bold"
+                style={{
+                  whiteSpace: "pre-line",
+                  color: isActive ? "#FFFFFF" : "#000000",
+                }}
+              >
+                {card.title}
+              </h3>
+              <motion.p
+                animate={{ opacity: isActive ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+                className="mt-3 text-sm leading-relaxed text-white/80"
+              >
+                {card.description}
+              </motion.p>
+            </motion.div>
+          );
+        })}
+      </div>
+
       {/* 데스크톱: 가로 아코디언 */}
-      <div className="hidden h-140 gap-4 md:flex">
+      <div className="hidden h-140 gap-4 lg:flex">
         {PROCESS_CARDS.map((card, index) => {
           const isActive = index === activeIndex;
 
