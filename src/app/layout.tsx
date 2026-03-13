@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Demodev Clone",
-  description: "Demodev Clone with Next.js",
+  title: "DemoDev Clone",
+  description: "DemoDev Clone - Creative Development Agency",
 };
 
 export default function RootLayout({
@@ -12,8 +12,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body>{children}</body>
+    <html lang="ko" className="dark">
+      <body className="min-h-screen bg-bg-primary font-sans text-text-primary antialiased">
+        {children}
+      </body>
     </html>
   );
 }
