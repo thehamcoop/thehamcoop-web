@@ -27,7 +27,7 @@ export default function Header() {
           ))}
           <a
             href="#contact"
-            className="rounded-lg bg-gradient-to-r from-accent-purple to-accent-blue px-5 py-2 text-sm font-medium text-white transition-shadow hover:shadow-lg hover:shadow-accent-purple/25"
+            className="rounded-lg bg-linear-to-r from-accent-purple to-accent-blue px-5 py-2 text-sm font-medium text-white transition-shadow hover:shadow-lg hover:shadow-accent-purple/25"
           >
             상담 신청
           </a>

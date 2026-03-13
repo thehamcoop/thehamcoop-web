@@ -1,5 +1,6 @@
 import Header from "@/components/sections/Header";
 import Hero from "@/components/sections/Hero";
+import Showcase from "@/components/sections/Showcase";
 import Portfolio from "@/components/sections/Portfolio";
 import Strengths from "@/components/sections/Strengths";
 import Process from "@/components/sections/Process";
@@ -13,6 +14,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <Showcase />
         <Portfolio />
         <Strengths />
         <Process />

@@ -14,35 +14,34 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-accent-purple/30 bg-accent-purple/10 px-4 py-2 text-sm text-accent-purple"
+          className="mb-8 inline-flex items-center gap-2 rounded-full border border-accent-purple/30 bg-accent-purple/10 px-4 py-2 text-sm text-accent-purple"
         >
           <span className="h-2 w-2 rounded-full bg-accent-purple" />
           {HERO.badge}
         </motion.div>
 
-        {/* Title */}
+        {/* Main headline */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="mb-6 whitespace-pre-line text-4xl font-bold leading-tight md:text-6xl lg:text-7xl"
+          className="mb-6 text-3xl font-bold leading-tight md:text-5xl lg:text-6xl"
         >
-          {HERO.title.split("\n").map((line, i) => (
-            <span key={i}>
-              {i === 1 ? <span className="gradient-text">{line}</span> : line}
-              {i === 0 && <br />}
-            </span>
-          ))}
+          큰 돈 내고 개발 외주 맡기기
+          <br />
+          <span className="gradient-text">불안하셨죠?</span>
         </motion.h1>
 
-        {/* Subtitle */}
+        {/* Sub headline */}
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="mb-10 max-w-2xl text-lg text-text-secondary md:text-xl"
+          className="mb-12 max-w-2xl text-lg leading-relaxed text-text-secondary md:text-xl"
         >
-          {HERO.subtitle}
+          2026 AI 과기부장관상 수상 개발팀과
+          <br className="hidden sm:block" />
+          진짜 비즈니스를 시작하세요
         </motion.p>
 
         {/* CTA buttons */}
