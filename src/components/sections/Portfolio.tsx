@@ -83,8 +83,9 @@ export default function Portfolio() {
 
   const x = useTransform(scrollYProgress, [0, 1], [0, -scrollDistance]);
 
-  // Container height = 1 screen (sticky) + scrollDistance for the horizontal travel
-  const sectionHeight = `calc(100vh + ${scrollDistance}px)`;
+  // Container height = 1 screen (sticky) + scrollDistance * multiplier for slower horizontal travel
+  const scrollMultiplier = 2;
+  const sectionHeight = `calc(100vh + ${scrollDistance * scrollMultiplier}px)`;
 
   return (
     <section
