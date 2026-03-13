@@ -27,6 +27,7 @@ export const HERO = {
 export const PORTFOLIO_ITEMS = [
   {
     id: 1,
+    slug: "lotteworld",
     title: "LOTTEWORLD",
     subtitle: "롯데월드 디지털 경험 혁신",
     image: "/images/portfolio/lotte-world.jpg",
@@ -34,6 +35,7 @@ export const PORTFOLIO_ITEMS = [
   },
   {
     id: 2,
+    slug: "holt",
     title: "HOLT",
     subtitle: "홀트아동복지회 플랫폼 리뉴얼",
     image: "/images/portfolio/holt.jpg",
@@ -41,6 +43,7 @@ export const PORTFOLIO_ITEMS = [
   },
   {
     id: 3,
+    slug: "gompyo",
     title: "GOMPYO",
     subtitle: "MZ세대 타겟 브랜드 디지털 전환",
     image: "/images/portfolio/gompyo.jpg",
@@ -48,6 +51,7 @@ export const PORTFOLIO_ITEMS = [
   },
   {
     id: 4,
+    slug: "fira",
     title: "FIRA",
     subtitle: "글로벌 패션 브랜드 이커머스",
     image: "/images/portfolio/fira.jpg",
@@ -55,6 +59,7 @@ export const PORTFOLIO_ITEMS = [
   },
   {
     id: 5,
+    slug: "koramco",
     title: "KORAMCO",
     subtitle: "코람코 내부 ERP 시스템",
     image: "/images/portfolio/koramco.jpg",
@@ -62,6 +67,7 @@ export const PORTFOLIO_ITEMS = [
   },
   {
     id: 6,
+    slug: "aim",
     title: "AIM",
     subtitle: "에임 AOS · IOS 앱 및 백오피스",
     image: "/images/portfolio/aim.jpg",

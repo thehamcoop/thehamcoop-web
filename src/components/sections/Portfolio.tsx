@@ -1,10 +1,11 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { PORTFOLIO_ITEMS } from "@/constants/site";
 
-const TEXT_AREA_WIDTH = 500;
+const TEXT_AREA_WIDTH = 580;
 const CARD_WIDTH = 500;
 
 function PortfolioCard({
@@ -17,11 +18,12 @@ function PortfolioCard({
       className="shrink-0 h-screen flex flex-col"
       style={{ backgroundColor: item.bgColor, width: CARD_WIDTH }}
     >
-      {/* Mockup area */}
-      <div className="relative flex-1 flex items-center justify-center overflow-hidden p-8">
+      {/* Mockup area - hover target */}
+      <div className="group relative h-[55%] flex flex-col items-center justify-center overflow-hidden p-8">
         <span className="absolute inset-0 flex items-center justify-center text-[120px] font-black opacity-10 text-white select-none leading-none">
           {item.title}
         </span>
+        {/* Laptop mockup */}
         <div className="relative z-10 w-85">
           <div className="rounded-t-lg border-[3px] border-gray-700 bg-gray-900 p-1">
             <div className="aspect-16/10 rounded-sm bg-gray-200 overflow-hidden">
@@ -31,13 +33,27 @@ function PortfolioCard({
           <div className="mx-auto h-3 w-[110%] -ml-[5%] rounded-b-xl bg-gray-700" />
           <div className="mx-auto h-1 w-[30%] rounded-b bg-gray-500" />
         </div>
+
+        {/* Hover overlay - mockup area only */}
+        <Link
+          href={`/portfolio/${item.slug}`}
+          className="absolute inset-0 z-20 flex items-center justify-center bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        >
+          <span className="inline-flex items-center gap-2 rounded-full border-2 border-white px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-black">
+            포트폴리오 보기
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M6 12l4-4-4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+        </Link>
       </div>
 
-      <div className="px-8 pb-12 pt-4 text-center">
-        <h3 className="text-2xl font-bold text-white tracking-wide">
+      {/* Title & description below */}
+      <div className="px-8 pb-12 pt-6 text-center">
+        <h3 className="text-5xl font-bold text-white tracking-wide">
           {item.title}
         </h3>
-        <p className="mt-2 text-sm text-white/80">{item.subtitle}</p>
+        <p className="mt-4 text-lg text-white/80">{item.subtitle}</p>
       </div>
     </div>
   );
@@ -79,15 +95,15 @@ export default function Portfolio() {
     >
       <div className="sticky top-0 h-screen flex overflow-hidden">
         {/* Left fixed text area */}
-        <div className="relative z-20 shrink-0 flex flex-col justify-center px-12 lg:px-16 bg-bg-primary" style={{ width: TEXT_AREA_WIDTH }}>
-          <h2 className="text-4xl font-bold leading-tight lg:text-5xl">
+        <div className="relative z-20 shrink-0 flex flex-col justify-center px-12 lg:px-16 bg-white" style={{ width: TEXT_AREA_WIDTH }}>
+          <h2 className="text-5xl font-bold leading-tight text-black lg:text-6xl">
             대기업이
             <br />
             대모산개발단을
             <br />
             찾는 이유
           </h2>
-          <p className="mt-6 text-text-secondary leading-relaxed">
+          <p className="mt-6 text-lg text-gray-600 leading-relaxed">
             설립 1년 미만,
             <br />
             대기업 포함 수십 건의 프로젝트 성공
