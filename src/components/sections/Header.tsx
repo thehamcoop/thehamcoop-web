@@ -9,7 +9,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg">
-      <div className="mx-auto flex items-center justify-between px-6 py-4 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+      <div className="mx-auto flex items-center justify-between px-2 py-4 md:px-4 lg:px-6 xl:px-8 2xl:px-10">
         <div className="flex items-center gap-8">
           <a href="#" className="text-xl font-bold">
             <span className="text-accent-purple">{SITE.name}</span>
