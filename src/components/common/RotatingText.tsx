@@ -88,7 +88,7 @@ export default function RotatingText({
 
       {/* Description below the title */}
       {descriptions && descriptions.length > 0 && (
-        <div className="mt-10 h-8 overflow-hidden">
+        <div className="mt-10 min-h-8 overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.p
               key={`desc-${currentIndex}`}

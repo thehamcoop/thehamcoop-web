@@ -37,14 +37,53 @@ export default function Process() {
   }, []);
 
   return (
-    <section id="process" className="overflow-visible bg-black px-6 pt-20 pb-0 md:px-12 lg:px-20">
+    <section
+      id="process"
+      className="overflow-visible bg-black px-6 pt-20 pb-0 md:px-12 lg:px-20"
+    >
       <h2 className="mb-12 text-3xl font-bold text-white md:text-5xl">
         대표님이 걱정하는 문제를
         <br />
         분명히 알고 있습니다
       </h2>
 
-      <div className="flex h-140 gap-4">
+      {/* 모바일: 세로 배치 + 순환 애니메이션 */}
+      <div className="flex flex-col gap-4 md:hidden">
+        {PROCESS_CARDS.map((card, index) => {
+          const isActive = index === activeIndex;
+          return (
+            <motion.div
+              key={index}
+              animate={{
+                backgroundColor: isActive ? "#6C5CE7" : "#FFFFFF",
+              }}
+              transition={{ duration: 0.4 }}
+              className="h-90 cursor-pointer rounded-2xl p-6"
+              onClick={() => setActiveIndex(index)}
+            >
+              <h3
+                className="text-xl leading-tight font-bold"
+                style={{
+                  whiteSpace: "pre-line",
+                  color: isActive ? "#FFFFFF" : "#000000",
+                }}
+              >
+                {card.title}
+              </h3>
+              <motion.p
+                animate={{ opacity: isActive ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+                className="mt-3 text-sm leading-relaxed text-white/80"
+              >
+                {card.description}
+              </motion.p>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* 데스크톱: 가로 아코디언 */}
+      <div className="hidden h-140 gap-4 md:flex">
         {PROCESS_CARDS.map((card, index) => {
           const isActive = index === activeIndex;
 
