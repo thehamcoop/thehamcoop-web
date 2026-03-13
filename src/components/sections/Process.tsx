@@ -1,41 +1,92 @@
 "use client";
 
-import AnimatedSection from "@/components/common/AnimatedSection";
-import SectionContainer from "@/components/common/SectionContainer";
-import { PROCESS_STEPS } from "@/constants/site";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const PROCESS_CARDS = [
+  {
+    title: "대금을 다 내고도\n결과물을 못받았어요",
+    description:
+      "선금만 받고 연락이 두절되거나, 완성도가 낮은 결과물을 납품받아 사실상 처음부터 다시 개발해야 하는 상황이 발생하고 있어요.",
+  },
+  {
+    title: "계약서에 쓰인 내용이\n전혀 지켜지지 않아요",
+    description:
+      "계약서에 하자보수 대응 시간과 처리 기간이 적혀 있지만, 소통도 잘 안되고 하자보수 기간이 상당히 늘어지고 있어요.",
+  },
+  {
+    title: "개발사가 너무\n능력이 없어요",
+    description:
+      "기본적인 기능조차 제대로 구현하지 못하고, 일정은 계속 지연되며, 기술적 이해도가 부족해 커뮤니케이션 자체가 어려워요.",
+  },
+  {
+    title: "계획에 없던\n비용이 자꾸만\n추가돼요",
+    description:
+      "처음 견적과 달리 개발 도중 추가 비용을 계속 요구하며, 범위가 명확하지 않아 비용이 눈덩이처럼 불어나고 있어요.",
+  },
+];
 
 export default function Process() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % PROCESS_CARDS.length);
+    }, 2000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <SectionContainer id="process">
-      <AnimatedSection>
-        <p className="mb-2 text-sm font-medium text-accent-cyan">Process</p>
-        <h2 className="mb-4 text-3xl font-bold md:text-4xl">
-          프로젝트 <span className="gradient-text">진행 과정</span>
-        </h2>
-        <p className="mb-12 max-w-xl text-text-secondary">
-          체계적인 프로세스로 프로젝트를 성공적으로 이끕니다.
-        </p>
-      </AnimatedSection>
+    <section id="process" className="bg-black px-6 py-20 md:px-12 lg:px-20">
+      <h2 className="mb-12 text-3xl font-bold text-white md:text-5xl">
+        대표님이 걱정하는 문제를
+        <br />
+        분명히 알고 있습니다
+      </h2>
 
-      <div className="relative grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-        {/* Connecting line */}
-        <div className="absolute top-12 right-0 left-0 hidden h-px bg-gradient-to-r from-accent-purple via-accent-blue to-accent-cyan lg:block" />
+      <div className="flex h-140 gap-4">
+        {PROCESS_CARDS.map((card, index) => {
+          const isActive = index === activeIndex;
 
-        {PROCESS_STEPS.map((step, index) => (
-          <AnimatedSection key={step.step} delay={index * 0.15}>
-            <div className="relative rounded-xl border border-border-default bg-bg-card p-6 text-center">
-              {/* Step number circle */}
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-accent-purple to-accent-blue text-lg font-bold text-white">
-                {step.step}
+          return (
+            <motion.div
+              key={index}
+              layout
+              className="relative cursor-pointer overflow-hidden rounded-2xl"
+              style={{
+                flex: isActive ? 3 : 1,
+                backgroundColor: isActive ? "#6C5CE7" : "#FFFFFF",
+                color: isActive ? "#FFFFFF" : "#000000",
+              }}
+              transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+              onClick={() => setActiveIndex(index)}
+            >
+              <div className="flex h-full flex-col justify-between p-8">
+                <h3
+                  className="text-2xl leading-tight font-bold md:text-3xl"
+                  style={{ whiteSpace: "pre-line" }}
+                >
+                  {card.title}
+                </h3>
+
+                <AnimatePresence>
+                  {isActive && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 20 }}
+                      transition={{ duration: 0.3, delay: 0.15 }}
+                      className="mt-auto text-base leading-relaxed opacity-90 md:text-lg"
+                    >
+                      {card.description}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </div>
-              <h3 className="mb-2 text-lg font-semibold">{step.title}</h3>
-              <p className="text-sm leading-relaxed text-text-secondary">
-                {step.description}
-              </p>
-            </div>
-          </AnimatedSection>
-        ))}
+            </motion.div>
+          );
+        })}
       </div>
-    </SectionContainer>
+    </section>
   );
 }
