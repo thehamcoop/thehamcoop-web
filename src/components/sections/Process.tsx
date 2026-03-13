@@ -37,7 +37,7 @@ export default function Process() {
   }, []);
 
   return (
-    <section id="process" className="bg-black px-6 py-20 md:px-12 lg:px-20">
+    <section id="process" className="overflow-visible bg-black px-6 pt-20 pb-0 md:px-12 lg:px-20">
       <h2 className="mb-12 text-3xl font-bold text-white md:text-5xl">
         대표님이 걱정하는 문제를
         <br />
@@ -86,6 +86,18 @@ export default function Process() {
             </motion.div>
           );
         })}
+      </div>
+
+      {/* 걱정 마세요 배너 - 섹션 경계에 걸침 */}
+      <div className="relative z-10 mt-16 flex items-center justify-center translate-y-1/2">
+        <div
+          className="inline-block rounded-2xl bg-[#6C5CE7] px-16 py-8 text-center"
+          style={{ transform: "rotate(-3deg)" }}
+        >
+          <span className="text-4xl font-bold text-white md:text-6xl">
+            걱정 마세요!
+          </span>
+        </div>
       </div>
     </section>
   );
