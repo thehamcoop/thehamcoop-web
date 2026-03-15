@@ -11,8 +11,21 @@ export default function Header() {
     <header className="fixed top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg">
       <div className="mx-auto flex items-center justify-between px-2 py-4 md:px-4 lg:px-6 xl:px-8 2xl:px-10">
         <div className="flex items-center gap-8">
-          <a href="#" className="text-xl font-bold">
-            <span className="text-purple-900">{SITE.name}</span>
+          <a href="#" className="flex items-center gap-4 text-xl font-bold">
+            <img
+              src="/images/thehamcoop-logo.svg"
+              alt="logo"
+              className="h-8 w-8"
+            />
+            <div className="flex flex-col items-center leading-tight">
+              <span style={{ color: "#164761" }}>더함 협동조합</span>
+              <span
+                className="text-[0.60rem] font-semibold tracking-wide"
+                style={{ color: "#164761" }}
+              >
+                THEHAM COOPERATIVE
+              </span>
+            </div>
           </a>
 
           {/* Desktop nav */}

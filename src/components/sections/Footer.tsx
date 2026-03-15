@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-4">
         {/* Brand */}
         <div className="md:col-span-2">
-          <span className="gradient-text text-xl font-bold">{SITE.name}</span>
+          <span className="text-xl font-bold" style={{ color: "#164761" }}>더함 협동조합</span>
           <p className="mt-3 text-sm leading-relaxed text-text-secondary">
             {SITE.description}
           </p>
