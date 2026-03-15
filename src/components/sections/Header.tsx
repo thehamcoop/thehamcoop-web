@@ -30,28 +30,27 @@ export default function Header() {
 
           {/* Desktop nav */}
           <nav className="hidden items-center gap-6 md:flex">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm font-semibold text-gray-600 transition-colors hover:text-gray-900"
-              >
-                {link.label}
-              </a>
-            ))}
+            <a
+              href="#blog"
+              className="text-sm font-semibold text-gray-600 transition-colors hover:text-gray-900"
+            >
+              블로그
+            </a>
           </nav>
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
           <a
             href="#about"
-            className="rounded-3xl border border-purple-900 px-5 py-2 text-sm font-medium text-purple-900 transition-colors hover:bg-gray-50"
+            className="rounded-3xl border px-5 py-2 text-sm font-medium transition-colors hover:bg-gray-50"
+            style={{ borderColor: "#2DB7C1", color: "#2DB7C1" }}
           >
             회사 소개
           </a>
           <a
             href="#contact"
-            className="rounded-3xl bg-linear-to-r from-accent-purple to-accent-blue px-5 py-2 text-sm font-medium text-white transition-shadow hover:shadow-lg hover:shadow-accent-purple/25"
+            className="rounded-3xl px-5 py-2 text-sm font-medium text-white transition-shadow hover:shadow-lg"
+            style={{ background: "linear-gradient(to right, #2DB7C1, #1A8A91)" }}
           >
             상담 신청
           </a>
@@ -85,16 +84,13 @@ export default function Header() {
             className="border-t border-gray-200 bg-white md:hidden"
           >
             <div className="flex flex-col gap-4 px-6 py-6">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-gray-600 transition-colors hover:text-gray-900"
-                >
-                  {link.label}
-                </a>
-              ))}
+              <a
+                href="#blog"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-gray-600 transition-colors hover:text-gray-900"
+              >
+                블로그
+              </a>
               <a
                 href="#about"
                 onClick={() => setIsMenuOpen(false)}

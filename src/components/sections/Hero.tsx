@@ -51,7 +51,8 @@ export default function Hero() {
         >
           <a
             href="#about"
-            className="rounded-full border border-purple-900 bg-white px-8 py-4 text-base font-semibold text-purple-900 transition-colors hover:bg-gray-50"
+            className="rounded-full border bg-white px-8 py-4 text-base font-semibold transition-colors hover:bg-gray-50"
+            style={{ borderColor: "#2DB7C1", color: "#2DB7C1" }}
           >
             회사 소개서
           </a>
