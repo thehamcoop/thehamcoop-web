@@ -109,27 +109,12 @@ export default function Portfolio() {
           {/* 상단: 제목 + 전체보기 */}
           <div className="flex shrink-0 items-start justify-between px-5 pt-20 pb-4">
             <h2 className="text-2xl leading-tight font-bold text-black">
-              대기업이
+              많은 기업들이
               <br />
-              대모산개발단을
+              더함협동조합을
               <br />
               찾는 이유
             </h2>
-            <a
-              href="#portfolio-detail"
-              className="mt-1 inline-flex shrink-0 items-center gap-1 rounded-full bg-[#3b2fc0] px-4 py-2 text-xs font-medium text-white"
-            >
-              전체보기
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M6 12l4-4-4-4"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
           </div>
 
           {/* 하단: 가로 스크롤 카드 */}
@@ -161,40 +146,12 @@ export default function Portfolio() {
           style={{ width: DESKTOP_TEXT_WIDTH }}
         >
           <h2 className="text-5xl leading-tight font-bold text-black lg:text-6xl">
-            대기업이
+            많은 기업들이
             <br />
-            대모산개발단을
+            더함협동조합을
             <br />
             찾는 이유
           </h2>
-          <p className="mt-6 text-lg leading-relaxed text-gray-600">
-            설립 1년 미만,
-            <br />
-            대기업 포함 수십 건의 프로젝트 성공
-          </p>
-          <div className="mt-8">
-            <a
-              href="#portfolio-detail"
-              className="inline-flex items-center gap-2 rounded-full bg-[#3b2fc0] px-6 py-3 text-sm font-medium text-white transition-shadow hover:shadow-lg hover:shadow-[#3b2fc0]/30"
-            >
-              포트폴리오 전체보기
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                className="ml-1"
-              >
-                <path
-                  d="M6 12l4-4-4-4"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
-          </div>
         </div>
 
         {/* Right scrollable cards */}
