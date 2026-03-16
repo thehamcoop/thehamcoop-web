@@ -5,18 +5,27 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const {
-      name,
-      phone,
-      company,
-      email,
-      message,
-      budget,
-      taskType,
-      detail,
-      selectedChannels,
-    } = body;
+    const formData = await request.formData();
+
+    const name = formData.get("name") as string;
+    const phone = formData.get("phone") as string;
+    const company = formData.get("company") as string;
+    const email = formData.get("email") as string;
+    const message = formData.get("message") as string;
+    const budget = formData.get("budget") as string;
+    const taskType = formData.get("taskType") as string;
+    const detail = formData.get("detail") as string;
+    const selectedChannels = JSON.parse(
+      formData.get("selectedChannels") as string,
+    ) as string[];
+
+    const fileEntries = formData.getAll("files") as File[];
+    const attachments = await Promise.all(
+      fileEntries.map(async (file) => ({
+        filename: file.name,
+        content: Buffer.from(await file.arrayBuffer()),
+      })),
+    );
 
     const htmlContent = `
       <h2>새로운 상담 신청이 접수되었습니다.</h2>
@@ -65,6 +74,7 @@ export async function POST(request: Request) {
       to: "simon010809@gmail.com",
       subject: `[상담 신청] ${name}님의 문의`,
       html: htmlContent,
+      attachments: attachments.length > 0 ? attachments : undefined,
     });
 
     if (error) {
