@@ -22,7 +22,7 @@ function PortfolioCard({ item }: { item: (typeof PORTFOLIO_ITEMS)[number] }) {
         />
       </div>
 
-      <div className="flex h-[45%] flex-col items-center justify-center px-6 text-center md:px-8">
+      <div className="flex h-[45%] flex-col items-center px-6 pt-10 text-center md:px-8 md:pt-14">
         <h3 className="text-lg font-bold tracking-wide text-white md:text-[1.65rem]">
           {item.title}
         </h3>
