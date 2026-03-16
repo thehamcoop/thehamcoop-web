@@ -2,16 +2,16 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { NAV_LINKS, SITE } from "@/constants/site";
+import Link from "next/link";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg">
-      <div className="mx-auto flex items-center justify-between px-2 py-4 md:px-4 lg:px-6 xl:px-8 2xl:px-10">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg">
+      <div className="mx-auto flex items-center justify-between px-4 py-4 md:px-8 lg:px-12">
         <div className="flex items-center gap-8">
-          <a href="#" className="flex items-center gap-4 text-xl font-bold">
+          <Link href="/" className="flex items-center gap-4 text-xl font-bold">
             <img
               src="/images/thehamcoop-logo.svg"
               alt="logo"
@@ -26,33 +26,32 @@ export default function Header() {
                 THEHAM COOPERATIVE
               </span>
             </div>
-          </a>
+          </Link>
 
-          {/* Desktop nav */}
           <nav className="hidden items-center gap-6 md:flex">
-            <a
-              href="https://blog.thehamcoop.kr"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/"
               className="text-sm font-semibold text-gray-600 transition-colors hover:text-gray-900"
             >
               블로그
-            </a>
+            </Link>
           </nav>
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
           <a
-            href="#about"
+            href="https://www.thehamcoop.kr"
             className="rounded-3xl border px-5 py-2 text-sm font-medium transition-colors hover:bg-gray-50"
             style={{ borderColor: "#2DB7C1", color: "#2DB7C1" }}
           >
-            회사 소개
+            홈페이지
           </a>
           <a
-            href="/consultation"
+            href="https://www.thehamcoop.kr/consultation"
             className="rounded-3xl px-5 py-2 text-sm font-medium text-white transition-shadow hover:shadow-lg"
-            style={{ background: "linear-gradient(to right, #2DB7C1, #1A8A91)" }}
+            style={{
+              background: "linear-gradient(to right, #2DB7C1, #1A8A91)",
+            }}
           >
             상담 신청
           </a>
@@ -86,28 +85,26 @@ export default function Header() {
             className="border-t border-gray-200 bg-white md:hidden"
           >
             <div className="flex flex-col gap-4 px-6 py-6">
-              <a
-                href="https://blog.thehamcoop.kr"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/"
                 onClick={() => setIsMenuOpen(false)}
                 className="text-gray-600 transition-colors hover:text-gray-900"
               >
                 블로그
-              </a>
+              </Link>
               <a
-                href="#about"
-                onClick={() => setIsMenuOpen(false)}
-                className=" text-gray-600 transition-colors hover:text-gray-900"
-              >
-                회사 소개
-              </a>
-              <a
-                href="/consultation"
+                href="https://www.thehamcoop.kr"
                 onClick={() => setIsMenuOpen(false)}
                 className="text-gray-600 transition-colors hover:text-gray-900"
               >
-                문의하기
+                홈페이지
+              </a>
+              <a
+                href="https://www.thehamcoop.kr/consultation"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-gray-600 transition-colors hover:text-gray-900"
+              >
+                상담 신청
               </a>
             </div>
           </motion.nav>
