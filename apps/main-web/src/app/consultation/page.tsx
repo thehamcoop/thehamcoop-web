@@ -59,7 +59,9 @@ export default function ConsultationPage() {
     setTimeout(() => setToast(null), 3000);
   }, []);
 
-  function handleSubmit(e: React.FormEvent) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitted(true);
 
@@ -82,7 +84,45 @@ export default function ConsultationPage() {
       return;
     }
 
-    alert("상담 신청이 완료되었습니다. 감사합니다!");
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          company: form.company,
+          email: form.email,
+          message: form.message,
+          budget,
+          taskType,
+          detail,
+          selectedChannels,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        showToast(data.error || "이메일 전송에 실패했습니다.");
+        return;
+      }
+
+      alert("상담 신청이 완료되었습니다. 감사합니다!");
+      setSubmitted(false);
+      setForm({ name: "", phone: "", email: "", company: "", message: "" });
+      setBudget("");
+      setTaskType("");
+      setDetail("");
+      setSelectedChannels([]);
+      setOtherChannel("");
+      setAgreed(false);
+      setFiles([]);
+    } catch {
+      showToast("이메일 전송에 실패했습니다.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const errorBorder = "border-red-500";
@@ -475,12 +515,13 @@ export default function ConsultationPage() {
             {/* Submit */}
             <button
               type="submit"
-              className="w-full rounded-lg py-4 text-base font-semibold text-white transition-shadow hover:shadow-lg"
+              disabled={isSubmitting}
+              className="w-full rounded-lg py-4 text-base font-semibold text-white transition-shadow hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
               style={{
                 background: "linear-gradient(to right, #2DB7C1, #1A8A91)",
               }}
             >
-              제출하기
+              {isSubmitting ? "전송 중..." : "제출하기"}
             </button>
           </form>
         </motion.div>
