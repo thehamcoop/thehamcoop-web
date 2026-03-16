@@ -31,7 +31,9 @@ export default function Header() {
           {/* Desktop nav */}
           <nav className="hidden items-center gap-6 md:flex">
             <a
-              href="#blog"
+              href="https://blog.thehamcoop.kr"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-sm font-semibold text-gray-600 transition-colors hover:text-gray-900"
             >
               블로그
@@ -85,7 +87,9 @@ export default function Header() {
           >
             <div className="flex flex-col gap-4 px-6 py-6">
               <a
-                href="#blog"
+                href="https://blog.thehamcoop.kr"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setIsMenuOpen(false)}
                 className="text-gray-600 transition-colors hover:text-gray-900"
               >

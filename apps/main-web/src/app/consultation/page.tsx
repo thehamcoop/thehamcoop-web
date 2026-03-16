@@ -129,17 +129,17 @@ export default function ConsultationPage() {
         animate={{ width: "50%" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="hidden md:fixed md:inset-y-0 md:left-0 md:flex md:items-center md:justify-center"
-        style={{ backgroundColor: "#000830" }}
+        style={{ backgroundColor: "#F1F1F5" }}
       >
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex items-center gap-5">
           <img
             src="/images/thehamcoop-logo.svg"
             alt="logo"
-            className="h-16 w-16"
+            className="h-28 w-28"
           />
           <div className="flex flex-col items-center leading-tight">
-            <span className="text-2xl font-bold text-white">더함 협동조합</span>
-            <span className="text-xs font-semibold tracking-widest text-white/60">
+            <span className="text-5xl font-bold" style={{ color: "#1e4f66" }}>더함 협동조합</span>
+            <span className="text-base font-semibold tracking-widest" style={{ color: "#1e4f66" }}>
               THEHAM COOPERATIVE
             </span>
           </div>
@@ -151,7 +151,7 @@ export default function ConsultationPage() {
         initial={{ height: "100vh" }}
         animate={{ height: "auto" }}
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
-        className="sticky top-0 z-20 flex items-center justify-center bg-[#000830] md:hidden"
+        className="sticky top-0 z-20 flex items-center justify-center bg-[#F1F1F5] md:hidden"
       >
         {/* Full logo — visible initially, hidden after shrink */}
         <motion.div
@@ -166,8 +166,8 @@ export default function ConsultationPage() {
             className="h-16 w-16"
           />
           <div className="flex flex-col items-center leading-tight">
-            <span className="text-2xl font-bold text-white">더함 협동조합</span>
-            <span className="text-xs font-semibold tracking-widest text-white/60">
+            <span className="text-2xl font-bold" style={{ color: "#1e4f66" }}>더함 협동조합</span>
+            <span className="text-xs font-semibold tracking-widest" style={{ color: "#1e4f66" }}>
               THEHAM COOPERATIVE
             </span>
           </div>
@@ -180,8 +180,8 @@ export default function ConsultationPage() {
           transition={{ duration: 0.4, delay: 0.9 }}
           className="flex flex-col items-center py-4"
         >
-          <span className="text-lg font-bold text-white">더함 협동조합</span>
-          <span className="text-[0.6rem] font-semibold tracking-widest text-white/60">
+          <span className="text-lg font-bold" style={{ color: "#1e4f66" }}>더함 협동조합</span>
+          <span className="text-[0.6rem] font-semibold tracking-widest" style={{ color: "#1e4f66" }}>
             THEHAM COOPERATIVE
           </span>
         </motion.div>

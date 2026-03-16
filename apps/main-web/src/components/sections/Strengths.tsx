@@ -9,24 +9,28 @@ const ITEMS = [
     label: "특허보유",
     sub: "",
     side: "left" as const,
+    image: "/images/goodat/good1.png",
   },
   {
     number: "02",
     label: "자격증 발급 기관",
     sub: "",
     side: "right" as const,
+    image: "/images/goodat/good2.png",
   },
   {
     number: "03",
     label: "자체 브랜드 상품 개발·유통",
     sub: "",
     side: "left" as const,
+    image: "/images/goodat/good4.png",
   },
   {
     number: "04",
     label: "인스타 팔로워 7k",
     sub: "",
     side: "right" as const,
+    image: "/images/goodat/good3.png",
   },
 ];
 
@@ -185,15 +189,23 @@ export default function Strengths() {
                 }}
               >
                 <div
-                  className="flex h-60 w-60 items-center justify-center overflow-hidden rounded-full border-2 border-white/10 lg:h-80 lg:w-80"
+                  className="flex h-72 w-72 items-center justify-center overflow-hidden rounded-full border-2 border-white/10 lg:h-96 lg:w-96"
                   style={{
                     background:
-                      "linear-gradient(135deg, #1e1e3a 0%, #16213e 100%)",
+                      item.image ? undefined : "linear-gradient(135deg, #1e1e3a 0%, #16213e 100%)",
                   }}
                 >
-                  <span className="text-6xl font-bold text-[#27272a]/40 lg:text-8xl">
-                    {item.number}
-                  </span>
+                  {item.image ? (
+                    <img
+                      src={item.image}
+                      alt={item.label}
+                      className="h-[92%] w-[92%] object-cover object-top"
+                    />
+                  ) : (
+                    <span className="text-6xl font-bold text-[#27272a]/40 lg:text-8xl">
+                      {item.number}
+                    </span>
+                  )}
                 </div>
                 <p className="text-3xl font-bold text-[#27272a] lg:text-5xl">
                   {item.label}

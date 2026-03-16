@@ -1,0 +1,11 @@
+export const SITE = {
+  name: "더함 협동조합 블로그",
+  title: "더함 협동조합 블로그",
+  description: "더함 협동조합의 소식과 이야기를 전합니다.",
+} as const;
+
+export const FOOTER = {
+  address: "충청남도 천안시 서북구 충무로 143-10(쌍용동)",
+  phone: "070-7954-6965",
+  email: "contact@thehamcoop.kr",
+} as const;

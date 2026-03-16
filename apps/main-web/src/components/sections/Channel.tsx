@@ -72,7 +72,7 @@ export default function Channel() {
           유튜브에서 확인해 보세요
         </h2>
         <a
-          href="https://www.youtube.com"
+          href="https://www.youtube.com/@thehamcoop"
           target="_blank"
           rel="noopener noreferrer"
           className="shrink-0 rounded-full bg-[#6C5CE7] px-8 py-4 text-lg font-semibold text-white transition-opacity hover:opacity-90"
