@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 const VISIT_CHANNELS = [
@@ -29,8 +29,11 @@ export default function ConsultationPage() {
   const [otherChannel, setOtherChannel] = useState("");
   const [budget, setBudget] = useState("");
   const [taskType, setTaskType] = useState("");
+  const [detail, setDetail] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [toast, setToast] = useState<string | null>(null);
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -51,14 +54,39 @@ export default function ConsultationPage() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
+  const showToast = useCallback((message: string) => {
+    setToast(message);
+    setTimeout(() => setToast(null), 3000);
+  }, []);
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!agreed) {
-      alert("개인정보 수집에 동의해주세요.");
+    setSubmitted(true);
+
+    const validations: [boolean, string][] = [
+      [selectedChannels.length === 0, "방문 경로를 선택해주세요."],
+      [!form.name.trim(), "성함을 입력해주세요."],
+      [!form.phone.trim(), "연락처를 입력해주세요."],
+      [!form.company.trim(), "기관/직함을 입력해주세요."],
+      [!form.email.trim(), "이메일을 입력해주세요."],
+      [!form.message.trim(), "프로젝트 한 줄 설명을 입력해주세요."],
+      [!budget.trim(), "희망 견적을 입력해주세요."],
+      [!taskType, "의뢰 업무를 선택해주세요."],
+      [!detail.trim(), "의뢰 내용을 입력해주세요."],
+      [!agreed, "개인정보 수집에 동의해주세요."],
+    ];
+
+    const firstError = validations.find(([hasError]) => hasError);
+    if (firstError) {
+      showToast(firstError[1]);
       return;
     }
+
     alert("상담 신청이 완료되었습니다. 감사합니다!");
   }
+
+  const errorBorder = "border-red-500";
+  const normalBorder = "border-gray-300";
 
   return (
     <div className="relative min-h-screen">
@@ -178,7 +206,9 @@ export default function ConsultationPage() {
                       className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
                         selected
                           ? "border-[#2DB7C1] bg-[#2DB7C1] text-white"
-                          : "border-gray-300 text-gray-600 hover:border-[#2DB7C1] hover:text-[#2DB7C1]"
+                          : submitted && selectedChannels.length === 0
+                            ? "border-red-500 text-red-500 hover:border-[#2DB7C1] hover:text-[#2DB7C1]"
+                            : "border-gray-300 text-gray-600 hover:border-[#2DB7C1] hover:text-[#2DB7C1]"
                       }`}
                     >
                       {ch}
@@ -186,6 +216,9 @@ export default function ConsultationPage() {
                   );
                 })}
               </div>
+              {submitted && selectedChannels.length === 0 && (
+                <p className="mt-1 text-xs text-red-500">방문 경로를 선택해주세요.</p>
+              )}
               {selectedChannels.includes("그 외") && (
                 <div className="mt-3">
                   <label className="mb-1 block text-sm font-medium text-gray-700">
@@ -213,12 +246,14 @@ export default function ConsultationPage() {
               <input
                 type="text"
                 name="name"
-                required
                 value={form.name}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]"
+                className={`w-full rounded-lg border ${submitted && !form.name.trim() ? errorBorder : normalBorder} px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]`}
                 placeholder="고객명을 입력해주세요."
               />
+              {submitted && !form.name.trim() && (
+                <p className="mt-1 text-xs text-red-500">성함을 입력해주세요.</p>
+              )}
             </div>
 
             {/* Phone */}
@@ -229,12 +264,14 @@ export default function ConsultationPage() {
               <input
                 type="number"
                 name="phone"
-                required
                 value={form.phone}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]"
+                className={`w-full rounded-lg border ${submitted && !form.phone.trim() ? errorBorder : normalBorder} px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]`}
                 placeholder="연락처를 입력해주세요."
               />
+              {submitted && !form.phone.trim() && (
+                <p className="mt-1 text-xs text-red-500">연락처를 입력해주세요.</p>
+              )}
             </div>
 
             {/* Company */}
@@ -245,12 +282,14 @@ export default function ConsultationPage() {
               <input
                 type="text"
                 name="company"
-                required
                 value={form.company}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]"
+                className={`w-full rounded-lg border ${submitted && !form.company.trim() ? errorBorder : normalBorder} px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]`}
                 placeholder="ex) 더합협동조합/이사장"
               />
+              {submitted && !form.company.trim() && (
+                <p className="mt-1 text-xs text-red-500">기관/직함을 입력해주세요.</p>
+              )}
             </div>
 
             {/* Email */}
@@ -261,12 +300,14 @@ export default function ConsultationPage() {
               <input
                 type="email"
                 name="email"
-                required
                 value={form.email}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]"
+                className={`w-full rounded-lg border ${submitted && !form.email.trim() ? errorBorder : normalBorder} px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]`}
                 placeholder="이메일을 입력해주세요."
               />
+              {submitted && !form.email.trim() && (
+                <p className="mt-1 text-xs text-red-500">이메일을 입력해주세요.</p>
+              )}
             </div>
 
             {/* Message */}
@@ -277,12 +318,14 @@ export default function ConsultationPage() {
               <input
                 type="text"
                 name="message"
-                required
                 value={form.message}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]"
+                className={`w-full rounded-lg border ${submitted && !form.message.trim() ? errorBorder : normalBorder} px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]`}
                 placeholder="프로젝트 이름을 입력해주세요."
               />
+              {submitted && !form.message.trim() && (
+                <p className="mt-1 text-xs text-red-500">프로젝트 한 줄 설명을 입력해주세요.</p>
+              )}
             </div>
 
             {/* Budget */}
@@ -295,14 +338,16 @@ export default function ConsultationPage() {
                   type="text"
                   value={budget}
                   onChange={(e) => setBudget(e.target.value)}
-                  required
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 pr-10 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]"
+                  className={`w-full rounded-lg border ${submitted && !budget.trim() ? errorBorder : normalBorder} px-4 py-3 pr-10 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]`}
                   placeholder="예상 견적을 입력해주세요."
                 />
                 <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-500">
                   원
                 </span>
               </div>
+              {submitted && !budget.trim() && (
+                <p className="mt-1 text-xs text-red-500">희망 견적을 입력해주세요.</p>
+              )}
             </div>
 
             {/* Task Type */}
@@ -319,13 +364,18 @@ export default function ConsultationPage() {
                     className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
                       taskType === type
                         ? "border-[#2DB7C1] bg-[#2DB7C1] text-white"
-                        : "border-gray-300 text-gray-600 hover:border-[#2DB7C1] hover:text-[#2DB7C1]"
+                        : submitted && !taskType
+                          ? "border-red-500 text-red-500 hover:border-[#2DB7C1] hover:text-[#2DB7C1]"
+                          : "border-gray-300 text-gray-600 hover:border-[#2DB7C1] hover:text-[#2DB7C1]"
                     }`}
                   >
                     {type}
                   </button>
                 ))}
               </div>
+              {submitted && !taskType && (
+                <p className="mt-1 text-xs text-red-500">의뢰 업무를 선택해주세요.</p>
+              )}
             </div>
 
             {/* Request Detail */}
@@ -336,10 +386,14 @@ export default function ConsultationPage() {
               <textarea
                 name="detail"
                 rows={5}
-                required
-                className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]"
+                value={detail}
+                onChange={(e) => setDetail(e.target.value)}
+                className={`w-full resize-none rounded-lg border ${submitted && !detail.trim() ? errorBorder : normalBorder} px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]`}
                 placeholder="의뢰 내용을 입력해주세요."
               />
+              {submitted && !detail.trim() && (
+                <p className="mt-1 text-xs text-red-500">의뢰 내용을 입력해주세요.</p>
+              )}
             </div>
 
             {/* File Upload */}
@@ -409,10 +463,13 @@ export default function ConsultationPage() {
                   type="checkbox"
                   checked={agreed}
                   onChange={(e) => setAgreed(e.target.checked)}
-                  className="h-4 w-4 rounded accent-[#2DB7C1]"
+                  className={`h-4 w-4 appearance-none rounded border-2 ${submitted && !agreed ? "border-red-500" : "border-gray-300"} checked:border-[#2DB7C1] checked:bg-[#2DB7C1] checked:bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22white%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M12.207%204.793a1%201%200%20010%201.414l-5%205a1%201%200%2001-1.414%200l-2-2a1%201%200%20011.414-1.414L6.5%209.086l4.293-4.293a1%201%200%20011.414%200z%22%2F%3E%3C%2Fsvg%3E')] bg-center bg-no-repeat`}
                 />
-                <span className="text-sm text-gray-600">네, 동의합니다.</span>
+                <span className={`text-sm ${submitted && !agreed ? "text-red-500" : "text-gray-600"}`}>네, 동의합니다.</span>
               </label>
+              {submitted && !agreed && (
+                <p className="mt-1 text-xs text-red-500">개인정보 수집에 동의해주세요.</p>
+              )}
             </div>
 
             {/* Submit */}
@@ -479,6 +536,21 @@ export default function ConsultationPage() {
           </div>
         </div>
       )}
+
+      {/* Toast */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+            className="fixed bottom-6 left-6 z-50 rounded-lg bg-red-500 px-5 py-3 text-sm font-medium text-white shadow-lg"
+          >
+            {toast}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
