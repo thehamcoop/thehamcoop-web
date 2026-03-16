@@ -1,0 +1,25 @@
+import Header from "@/components/sections/Header";
+import Hero from "@/components/sections/Hero";
+import Portfolio from "@/components/sections/Portfolio";
+import Strengths from "@/components/sections/Strengths";
+import Partners from "@/components/sections/Partners";
+import Channel from "@/components/sections/Channel";
+import Contact from "@/components/sections/Contact";
+import Footer from "@/components/sections/Footer";
+
+export default function Home() {
+  return (
+    <>
+      <Header />
+      <main>
+        <Hero />
+        <Portfolio />
+        <Strengths />
+        <Partners />
+        <Channel />
+        <Contact />
+      </main>
+      <Footer />
+    </>
+  );
+}
