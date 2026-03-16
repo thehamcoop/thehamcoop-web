@@ -21,7 +21,7 @@ export default function Contact() {
             불필요한 시행착오 없이 가장 빠른 프로세스로 완성합니다
           </p>
           <Button variant="primary" size="lg">
-            무료 상담 신청하기
+            무료 상담 신청
           </Button>
         </motion.div>
       </div>
