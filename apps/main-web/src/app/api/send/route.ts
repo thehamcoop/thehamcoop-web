@@ -47,7 +47,7 @@ export async function POST(request: Request) {
         </tr>
         <tr>
           <td style="padding: 8px 12px; border: 1px solid #ddd; background: #f9f9f9; font-weight: bold;">희망 견적</td>
-          <td style="padding: 8px 12px; border: 1px solid #ddd;">${budget}원</td>
+          <td style="padding: 8px 12px; border: 1px solid #ddd;">${Number(budget).toLocaleString("ko-KR")}원</td>
         </tr>
         <tr>
           <td style="padding: 8px 12px; border: 1px solid #ddd; background: #f9f9f9; font-weight: bold;">의뢰 업무</td>
