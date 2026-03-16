@@ -48,7 +48,7 @@ export default function Header() {
             회사 소개
           </a>
           <a
-            href="#contact"
+            href="/consultation"
             className="rounded-3xl px-5 py-2 text-sm font-medium text-white transition-shadow hover:shadow-lg"
             style={{ background: "linear-gradient(to right, #2DB7C1, #1A8A91)" }}
           >

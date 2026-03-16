@@ -18,7 +18,7 @@ export default function Contact() {
             함께 할 준비가 되어 있습니다.
           </h2>
 
-          <Button variant="primary" size="lg">
+          <Button variant="primary" size="lg" href="/consultation">
             상담문의 작성하기
           </Button>
         </motion.div>

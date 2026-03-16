@@ -57,7 +57,7 @@ export default function Hero() {
             회사 소개서
           </a>
           <a
-            href="#contact"
+            href="/consultation"
             className="rounded-full bg-linear-to-r from-accent-purple to-accent-blue px-8 py-4 text-base font-semibold text-white transition-shadow hover:shadow-lg hover:shadow-accent-purple/25"
           >
             상담하기

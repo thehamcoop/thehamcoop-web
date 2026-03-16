@@ -18,7 +18,7 @@ export default function Footer() {
           <ul className="flex flex-col gap-2">
             <li>
               <a
-                href="#contact"
+                href="/consultation"
                 className="text-sm text-text-secondary transition-colors hover:text-text-primary"
               >
                 문의하기
