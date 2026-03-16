@@ -71,7 +71,7 @@ function LogoColumn({
             key={i}
             className={`flex h-30 items-center px-6 ${align === "right" ? "justify-end" : ""}`}
           >
-            <img src={src} alt="" className="h-10 brightness-0 invert opacity-50" />
+            <img src={src} alt="" className="h-14 brightness-0 invert opacity-50" />
           </div>
         ))}
       </motion.div>
