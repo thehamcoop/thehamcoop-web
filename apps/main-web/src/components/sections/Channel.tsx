@@ -67,7 +67,7 @@ export default function Channel() {
       {/* 상단: 제목 + 버튼 */}
       <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
         <h2 className="text-3xl leading-tight font-bold text-black md:text-5xl">
-          대모산개발단의 전문성을
+          더합협동조합의 전문성을
           <br />
           유튜브에서 확인해 보세요
         </h2>

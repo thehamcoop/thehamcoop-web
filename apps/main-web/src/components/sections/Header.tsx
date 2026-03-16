@@ -48,7 +48,7 @@ export default function Header() {
             회사 소개
           </a>
           <a
-            href="#contact"
+            href="/consultation"
             className="rounded-3xl px-5 py-2 text-sm font-medium text-white transition-shadow hover:shadow-lg"
             style={{ background: "linear-gradient(to right, #2DB7C1, #1A8A91)" }}
           >
@@ -97,6 +97,13 @@ export default function Header() {
                 className=" text-gray-600 transition-colors hover:text-gray-900"
               >
                 회사 소개
+              </a>
+              <a
+                href="/consultation"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-gray-600 transition-colors hover:text-gray-900"
+              >
+                문의하기
               </a>
             </div>
           </motion.nav>
