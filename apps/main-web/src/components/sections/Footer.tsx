@@ -1,4 +1,4 @@
-import { FOOTER, NAV_LINKS, SITE } from "@/constants/site";
+import { FOOTER, SITE } from "@/constants/site";
 
 export default function Footer() {
   return (
@@ -16,16 +16,14 @@ export default function Footer() {
         <div>
           <h4 className="mb-3 text-sm font-semibold">바로가기</h4>
           <ul className="flex flex-col gap-2">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="text-sm text-text-secondary transition-colors hover:text-text-primary"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            <li>
+              <a
+                href="#contact"
+                className="text-sm text-text-secondary transition-colors hover:text-text-primary"
+              >
+                문의하기
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -40,8 +38,13 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-10 max-w-7xl border-t border-border-default pt-6 text-center text-xs text-text-muted">
-        &copy; {FOOTER.copyright}
+      <div className="mx-auto mt-10 max-w-7xl border-t border-border-default pt-6 text-left text-xs leading-relaxed text-text-muted">
+        <p>상호명: 더함협동조합</p>
+        <p>대표자: 김남현</p>
+        <p>사업자 등록 번호: 707-81-03048</p>
+        <p>주소: 충청남도 천안시 서북구 충무로 143-10(쌍용동)</p>
+        <p>유선전화: 070-7954-6965</p>
+        <p className="mt-2">Copyright &copy; 2023 더함협동조합. All rights reserved.</p>
       </div>
     </footer>
   );
