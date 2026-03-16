@@ -302,7 +302,7 @@ export default function ConsultationPage() {
                 연락처 <span className="text-red-500">*</span>
               </label>
               <input
-                type="number"
+                type="tel"
                 name="phone"
                 value={form.phone}
                 onChange={handleChange}
@@ -376,8 +376,8 @@ export default function ConsultationPage() {
               <div className="relative">
                 <input
                   type="text"
-                  value={budget}
-                  onChange={(e) => setBudget(e.target.value)}
+                  value={budget.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  onChange={(e) => setBudget(e.target.value.replace(/,/g, ""))}
                   className={`w-full rounded-lg border ${submitted && !budget.trim() ? errorBorder : normalBorder} px-4 py-3 pr-10 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]`}
                   placeholder="예상 견적을 입력해주세요."
                 />
