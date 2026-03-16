@@ -98,6 +98,13 @@ export default function Header() {
               >
                 회사 소개
               </a>
+              <a
+                href="/consultation"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-gray-600 transition-colors hover:text-gray-900"
+              >
+                문의하기
+              </a>
             </div>
           </motion.nav>
         )}
