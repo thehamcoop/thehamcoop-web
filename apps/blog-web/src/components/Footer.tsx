@@ -4,6 +4,8 @@ import { useState } from "react";
 import { SITE, FOOTER } from "@/constants/site";
 import { useAdmin } from "@/context/AdminContext";
 
+const MAIN_URL = process.env.NEXT_PUBLIC_MAIN_URL || "http://localhost:3000";
+
 export default function Footer() {
   const { isAdmin, login, logout } = useAdmin();
   const [showModal, setShowModal] = useState(false);
@@ -42,7 +44,7 @@ export default function Footer() {
           <ul className="flex flex-col gap-2">
             <li>
               <a
-                href="http://localhost:3000/consultation"
+                href={`${MAIN_URL}/consultation`}
                 className="text-sm text-gray-500 transition-colors hover:text-gray-900"
               >
                 문의하기
