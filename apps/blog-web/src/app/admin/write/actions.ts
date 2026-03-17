@@ -109,3 +109,52 @@ export async function savePost(input: SavePostInput) {
 
   return { success: true, post };
 }
+
+interface UpdatePostInput {
+  id: string;
+  title: string;
+  category_slug: string;
+  content: string;
+  is_pinned: boolean;
+}
+
+export async function updatePost(input: UpdatePostInput) {
+  const blocks: BlockContent[] = JSON.parse(input.content);
+
+  const thumbnailUrl = extractFirstImage(blocks) || "";
+
+  const { data: post, error: postError } = await supabase
+    .from("posts")
+    .update({
+      title: input.title,
+      category_slug: input.category_slug,
+      content: input.content,
+      thumbnail_url: thumbnailUrl,
+      is_pinned: input.is_pinned,
+    })
+    .eq("id", input.id)
+    .select()
+    .single();
+
+  if (postError) {
+    return { success: false, error: postError.message };
+  }
+
+  // 기존 첨부파일 삭제 후 재등록
+  await supabase.from("attachments").delete().eq("post_id", input.id);
+
+  const attachments = extractAttachments(blocks);
+
+  if (attachments.length > 0) {
+    const attachmentRows = attachments.map((att) => ({
+      post_id: post.id,
+      file_name: att.file_name,
+      file_url: att.file_url,
+      file_size: 0,
+    }));
+
+    await supabase.from("attachments").insert(attachmentRows);
+  }
+
+  return { success: true, post };
+}

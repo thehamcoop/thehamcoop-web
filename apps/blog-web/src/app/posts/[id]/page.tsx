@@ -167,12 +167,48 @@ export default function PostDetail() {
                 marginTop: "1rem",
                 display: "flex",
                 alignItems: "center",
-                gap: "0.5rem",
-                fontSize: "0.875rem",
-                color: "rgba(255,255,255,0.5)",
+                justifyContent: "space-between",
               }}
             >
-              <span>{formatDate(post.created_at)}</span>
+              <span
+                style={{
+                  fontSize: "0.875rem",
+                  color: "rgba(255,255,255,0.5)",
+                }}
+              >
+                {formatDate(post.created_at)}
+              </span>
+              <Link
+                href={`/admin/edit/${post.id}`}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.375rem",
+                  padding: "0.375rem 1rem",
+                  fontSize: "0.8125rem",
+                  fontWeight: 500,
+                  color: "rgba(255,255,255,0.7)",
+                  border: "1px solid rgba(255,255,255,0.25)",
+                  borderRadius: "0.5rem",
+                  textDecoration: "none",
+                  transition: "all 0.2s",
+                }}
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                  <path d="m15 5 4 4" />
+                </svg>
+                수정
+              </Link>
             </div>
           </div>
         </motion.div>

@@ -13,7 +13,7 @@ export default function Header() {
     <header className="fixed top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg">
       <div className="mx-auto flex items-center justify-between px-2 py-4 md:px-4 lg:px-6 xl:px-8 2xl:px-10">
         <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-4 text-xl font-bold">
+          <a href="http://localhost:3000" className="flex items-center gap-4 text-xl font-bold">
             <img
               src="/images/thehamcoop-logo.svg"
               alt="logo"
@@ -28,7 +28,7 @@ export default function Header() {
                 THEHAM COOPERATIVE
               </span>
             </div>
-          </Link>
+          </a>
 
           {/* Desktop nav */}
           <nav className="hidden items-center gap-6 md:flex">
