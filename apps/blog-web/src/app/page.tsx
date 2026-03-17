@@ -1,25 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { POSTS } from "@/constants/posts";
+import { supabase } from "@/lib/supabase";
+import type { Post } from "@/types/database.types";
 
 const CATEGORIES = [
-  "전체",
-  "교육",
-  "시제품 제작 & 제조",
-  "마케팅 & 유통",
-  "R&D",
+  { value: "all", label: "전체" },
+  { value: "education", label: "교육" },
+  { value: "manufacturing", label: "시제품 제작 & 제조" },
+  { value: "marketing", label: "마케팅 & 유통" },
+  { value: "rnd", label: "R&D" },
 ];
 
 export default function BlogHome() {
-  const [activeCategory, setActiveCategory] = useState("전체");
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredPosts =
-    activeCategory === "전체"
-      ? POSTS
-      : POSTS.filter((post) => post.category === activeCategory);
+  useEffect(() => {
+    async function fetchPosts() {
+      setLoading(true);
+
+      let query = supabase
+        .from("posts")
+        .select("*")
+        .order("is_pinned", { ascending: false })
+        .order("created_at", { ascending: false });
+
+      if (activeCategory !== "all") {
+        query = query.eq("category_slug", activeCategory);
+      }
+
+      const { data } = await query;
+      setPosts((data as Post[]) || []);
+      setLoading(false);
+    }
+
+    fetchPosts();
+  }, [activeCategory]);
+
+  const getCategoryLabel = (slug: string) => {
+    return CATEGORIES.find((c) => c.value === slug)?.label || slug;
+  };
+
+  const formatDate = (dateStr: string) => {
+    return new Date(dateStr).toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
 
   return (
     <div>
@@ -28,7 +60,6 @@ export default function BlogHome() {
         className="relative overflow-hidden bg-[#1a1a3e]"
         style={{ padding: "8rem 2rem" }}
       >
-        {/* Decorative shapes */}
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute top-0 right-0 h-full w-1/2 bg-linear-to-bl from-[#2d2d6e]/80 to-transparent" />
           <div className="absolute bottom-0 left-1/4 h-1/2 w-1/2 bg-linear-to-t from-[#3a1a5e]/40 to-transparent" />
@@ -65,15 +96,15 @@ export default function BlogHome() {
         <div className="hide-scrollbar mb-10 flex items-center gap-3 overflow-x-auto pb-3">
           {CATEGORIES.map((category) => (
             <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
+              key={category.value}
+              onClick={() => setActiveCategory(category.value)}
               className={`whitespace-nowrap rounded-full text-base font-semibold transition-all duration-200 ${
-                activeCategory === category
+                activeCategory === category.value
                   ? "bg-[#1a1a3e] text-white shadow-sm px-12 py-5"
                   : "bg-gray-50 text-gray-500 hover:bg-gray-200 hover:text-gray-700 px-10 py-4"
               }`}
             >
-              {category}
+              {category.label}
             </button>
           ))}
           <Link
@@ -84,49 +115,66 @@ export default function BlogHome() {
           </Link>
         </div>
 
+        {/* Loading */}
+        {loading && (
+          <div className="py-20 text-center text-sm text-gray-400">
+            글을 불러오는 중...
+          </div>
+        )}
+
+        {/* Empty */}
+        {!loading && posts.length === 0 && (
+          <div className="py-20 text-center text-sm text-gray-400">
+            아직 작성된 글이 없습니다.
+          </div>
+        )}
+
         {/* Post Grid - 3 columns */}
-        <div
-          className="grid gap-8"
-          style={{ gridTemplateColumns: "repeat(3, 1fr)" }}
-        >
-          {filteredPosts.map((post, index) => (
-            <motion.div
-              key={post.slug}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.08 }}
-            >
-              <Link href={`/posts/${post.slug}`} className="group block">
-                {/* Thumbnail */}
-                <div className="aspect-video w-full overflow-hidden rounded-lg bg-linear-to-br from-accent/20 to-accent-dark/20">
-                  {post.thumbnail &&
-                    post.thumbnail !== "/images/placeholder.jpg" && (
+        {!loading && posts.length > 0 && (
+          <div
+            className="grid gap-8"
+            style={{ gridTemplateColumns: "repeat(3, 1fr)" }}
+          >
+            {posts.map((post, index) => (
+              <motion.div
+                key={post.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+              >
+                <Link href={`/posts/${post.id}`} className="group block">
+                  {/* Thumbnail */}
+                  <div className="aspect-video w-full overflow-hidden rounded-lg bg-linear-to-br from-accent/20 to-accent-dark/20">
+                    {post.thumbnail_url && (
                       <img
-                        src={post.thumbnail}
+                        src={post.thumbnail_url}
                         alt={post.title}
                         className="h-full w-full object-cover transition-transform group-hover:scale-105"
                       />
                     )}
-                </div>
-
-                {/* Content */}
-                <div className="mt-4">
-                  <h2 className="text-base font-bold text-gray-900 transition-colors group-hover:text-accent">
-                    {post.title}
-                  </h2>
-                  <p className="mt-1 line-clamp-2 text-sm text-gray-500">
-                    {post.description}
-                  </p>
-                  <div className="mt-3 flex items-center gap-2 text-xs text-gray-400">
-                    <span className="text-accent-dark">{post.category}</span>
-                    <span>·</span>
-                    <span>{post.date}</span>
                   </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
+
+                  {/* Content */}
+                  <div className="mt-4">
+                    <h2 className="text-base font-bold text-gray-900 transition-colors group-hover:text-accent">
+                      {post.is_pinned && (
+                        <span className="mr-1.5 text-accent">[고정]</span>
+                      )}
+                      {post.title}
+                    </h2>
+                    <div className="mt-3 flex items-center gap-2 text-xs text-gray-400">
+                      <span className="text-accent-dark">
+                        {getCategoryLabel(post.category_slug)}
+                      </span>
+                      <span>·</span>
+                      <span>{formatDate(post.created_at)}</span>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );
