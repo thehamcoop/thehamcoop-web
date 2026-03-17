@@ -29,7 +29,7 @@ export default function Footer() {
         {/* Brand */}
         <div className="md:col-span-2">
           <span className="text-xl font-bold" style={{ color: "#164761" }}>
-            더함 협동조합
+            더함협동조합
           </span>
           <p className="mt-3 text-sm leading-relaxed text-gray-500">
             {SITE.description}
@@ -38,9 +38,7 @@ export default function Footer() {
 
         {/* Links */}
         <div>
-          <h4 className="mb-3 text-sm font-semibold text-gray-900">
-            바로가기
-          </h4>
+          <h4 className="mb-3 text-sm font-semibold text-gray-900">바로가기</h4>
           <ul className="flex flex-col gap-2">
             <li>
               <a

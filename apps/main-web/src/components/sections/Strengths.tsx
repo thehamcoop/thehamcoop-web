@@ -175,7 +175,7 @@ export default function Strengths() {
                 <span
                   className="inline-block px-3 pb-2 pt-0 text-white align-middle"
                   style={{
-                    background: "linear-gradient(135deg, #6c5ce7 0%, #4f46e5 50%, #3b82f6 100%)",
+                    background: "linear-gradient(135deg, #2dd4bf 0%, #14b8a6 50%, #0d9488 100%)",
                     transform: "skewX(-4deg)",
                   }}
                 >
@@ -238,7 +238,7 @@ export default function Strengths() {
               <span
                 className="inline-block px-4 pb-3 pt-0 text-white align-middle"
                 style={{
-                  background: "linear-gradient(135deg, #6c5ce7 0%, #4f46e5 50%, #3b82f6 100%)",
+                  background: "linear-gradient(135deg, #2dd4bf 0%, #14b8a6 50%, #0d9488 100%)",
                   transform: "skewX(-4deg)",
                 }}
               >

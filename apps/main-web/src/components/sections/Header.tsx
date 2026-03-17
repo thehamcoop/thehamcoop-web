@@ -60,7 +60,7 @@ export default function Header() {
               background: "linear-gradient(to right, #2DB7C1, #1A8A91)",
             }}
           >
-            상담 신청
+            문의하기
           </a>
         </div>
 
