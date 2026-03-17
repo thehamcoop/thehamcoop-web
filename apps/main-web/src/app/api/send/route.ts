@@ -4,10 +4,12 @@ import { createClient } from "@supabase/supabase-js";
 
 export const dynamic = "force-dynamic";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 export async function POST(request: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY!);
@@ -36,6 +38,7 @@ export async function POST(request: Request) {
     );
 
     // Supabase DB에 상담 신청 저장
+    const supabase = getSupabase();
     const { error: dbError } = await supabase.from("consultations").insert({
       name,
       phone,
