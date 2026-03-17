@@ -42,3 +42,12 @@ body {
   background: #c0c0c0;
   border-radius: 3px;
 }
+
+/* Hide scrollbar for category tabs */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}

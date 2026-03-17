@@ -18,7 +18,7 @@ export default function PostDetail() {
           </h1>
           <Link
             href="/"
-            className="mt-4 inline-block text-sm text-[#2DB7C1] hover:underline"
+            className="mt-4 inline-block text-sm text-accent hover:underline"
           >
             &larr; 블로그로 돌아가기
           </Link>
@@ -42,7 +42,7 @@ export default function PostDetail() {
       </Link>
 
       <div className="mt-8">
-        <span className="inline-block rounded-full bg-[#2DB7C1]/10 px-3 py-1 text-xs font-medium text-[#1A8A91]">
+        <span className="inline-block rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent-dark">
           {post.category}
         </span>
         <h1 className="mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
