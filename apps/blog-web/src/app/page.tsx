@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -16,7 +16,7 @@ const CATEGORIES = [
   { value: "rnd", label: "R&D" },
 ];
 
-export default function BlogHome() {
+function BlogContent() {
   const { isAdmin } = useAdmin();
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("q") || "";
@@ -221,5 +221,17 @@ export default function BlogHome() {
         )}
       </section>
     </div>
+  );
+}
+
+export default function BlogHome() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <p className="text-sm text-gray-400">로딩 중...</p>
+      </div>
+    }>
+      <BlogContent />
+    </Suspense>
   );
 }
