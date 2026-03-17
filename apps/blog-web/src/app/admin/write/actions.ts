@@ -4,7 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
 interface BlockContent {
@@ -157,4 +157,15 @@ export async function updatePost(input: UpdatePostInput) {
   }
 
   return { success: true, post };
+}
+
+export async function deletePost(id: string) {
+  await supabase.from("attachments").delete().eq("post_id", id);
+  const { error } = await supabase.from("posts").delete().eq("id", id);
+
+  if (error) {
+    return { success: false, error: error.message };
+  }
+
+  return { success: true };
 }
