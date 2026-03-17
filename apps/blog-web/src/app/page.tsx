@@ -33,7 +33,10 @@ export default function BlogHome() {
           <div className="absolute top-0 right-0 h-full w-1/2 bg-linear-to-bl from-[#2d2d6e]/80 to-transparent" />
           <div className="absolute bottom-0 left-1/4 h-1/2 w-1/2 bg-linear-to-t from-[#3a1a5e]/40 to-transparent" />
         </div>
-        <div className="relative" style={{ maxWidth: "64rem", margin: "0 auto" }}>
+        <div
+          className="relative"
+          style={{ maxWidth: "64rem", margin: "0 auto" }}
+        >
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -55,12 +58,11 @@ export default function BlogHome() {
       </section>
 
       {/* Category Tabs + Post List */}
-      <section style={{ maxWidth: "64rem", margin: "0 auto", padding: "2.5rem 2rem" }}>
+      <section
+        style={{ maxWidth: "64rem", margin: "0 auto", padding: "2.5rem 2rem" }}
+      >
         {/* Category Tabs */}
-        <div
-          className="hide-scrollbar mb-10 flex gap-3 overflow-x-auto pb-3"
-          style={{ justifyContent: "flex-start" }}
-        >
+        <div className="hide-scrollbar mb-10 flex items-center gap-3 overflow-x-auto pb-3">
           {CATEGORIES.map((category) => (
             <button
               key={category}
@@ -74,6 +76,12 @@ export default function BlogHome() {
               {category}
             </button>
           ))}
+          <Link
+            href="/admin/write"
+            className="ml-auto whitespace-nowrap rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+          >
+            + 글 작성
+          </Link>
         </div>
 
         {/* Post Grid - 3 columns */}

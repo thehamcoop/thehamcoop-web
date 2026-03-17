@@ -47,13 +47,17 @@ export default function Editor({ onChange, initialContent }: EditorProps) {
       />
       <style jsx global>{`
         .editor-wrapper .bn-editor {
-          min-height: 400px;
+          min-height: 420px;
           font-family: var(--font-sans);
+          padding: 0;
+          margin: 0 auto;
         }
         .editor-wrapper .bn-container {
-          border: 1px solid #e5e7eb;
-          border-radius: 0.75rem;
-          overflow: hidden;
+          border: none;
+          border-radius: 0;
+        }
+        .editor-wrapper .bn-block-group {
+          margin: 0 auto;
         }
       `}</style>
     </div>
