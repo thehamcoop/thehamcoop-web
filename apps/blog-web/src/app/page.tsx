@@ -59,12 +59,12 @@ export default function BlogHome() {
     <div>
       {/* Hero Banner */}
       <section
-        className="relative overflow-hidden bg-[#1a1a3e]"
+        className="relative overflow-hidden bg-[#164761]"
         style={{ padding: "8rem 2rem" }}
       >
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute top-0 right-0 h-full w-1/2 bg-linear-to-bl from-[#2d2d6e]/80 to-transparent" />
-          <div className="absolute bottom-0 left-1/4 h-1/2 w-1/2 bg-linear-to-t from-[#3a1a5e]/40 to-transparent" />
+          <div className="absolute top-0 right-0 h-full w-1/2 bg-linear-to-bl from-[#1A8A91]/30 to-transparent" />
+          <div className="absolute bottom-0 left-1/4 h-1/2 w-1/2 bg-linear-to-t from-[#2DB7C1]/20 to-transparent" />
         </div>
         <div
           className="relative"
