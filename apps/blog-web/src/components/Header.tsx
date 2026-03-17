@@ -1,15 +1,25 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 const MAIN_URL = process.env.NEXT_PUBLIC_MAIN_URL || "http://localhost:3000";
 
 export default function Header() {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      router.push(`/?q=${encodeURIComponent(searchQuery.trim())}`);
+      setIsSearchOpen(false);
+      setSearchQuery("");
+    }
+  };
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg">
@@ -61,6 +71,7 @@ export default function Header() {
                   className="mr-3 rounded-md border border-gray-200 bg-gray-50 px-4 py-2 text-sm text-gray-700 outline-none transition-colors focus:border-gray-300 focus:bg-white"
                   autoFocus
                   onKeyDown={(e) => {
+                    if (e.key === "Enter") handleSearch();
                     if (e.key === "Escape") {
                       setIsSearchOpen(false);
                       setSearchQuery("");

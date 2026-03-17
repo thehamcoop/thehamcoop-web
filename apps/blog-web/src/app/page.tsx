@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
@@ -17,6 +18,8 @@ const CATEGORIES = [
 
 export default function BlogHome() {
   const { isAdmin } = useAdmin();
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("q") || "";
   const [activeCategory, setActiveCategory] = useState("all");
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
@@ -35,13 +38,17 @@ export default function BlogHome() {
         query = query.eq("category_slug", activeCategory);
       }
 
+      if (searchQuery) {
+        query = query.ilike("title", `%${searchQuery}%`);
+      }
+
       const { data } = await query;
       setPosts((data as Post[]) || []);
       setLoading(false);
     }
 
     fetchPosts();
-  }, [activeCategory]);
+  }, [activeCategory, searchQuery]);
 
   const getCategoryLabel = (slug: string) => {
     return CATEGORIES.find((c) => c.value === slug)?.label || slug;
@@ -146,6 +153,18 @@ export default function BlogHome() {
           )}
         </div>
 
+        {/* 검색 중 표시 */}
+        {searchQuery && (
+          <div className="mb-6 flex items-center justify-between">
+            <p className="text-sm text-gray-500">
+              <span className="font-semibold text-[#164761]">&ldquo;{searchQuery}&rdquo;</span> 검색 결과
+            </p>
+            <Link href="/" className="text-xs text-gray-400 hover:text-gray-600">
+              검색 초기화
+            </Link>
+          </div>
+        )}
+
         {/* Loading */}
         {loading && (
           <div className="py-20 text-center text-sm text-gray-400">
@@ -156,7 +175,7 @@ export default function BlogHome() {
         {/* Empty */}
         {!loading && posts.length === 0 && (
           <div className="py-20 text-center text-sm text-gray-400">
-            아직 작성된 글이 없습니다.
+            {searchQuery ? "검색 결과가 없습니다." : "아직 작성된 글이 없습니다."}
           </div>
         )}
 
