@@ -159,14 +159,14 @@ export default function Strengths() {
             </h2>
             <h2 className="mt-2 text-5xl font-black leading-tight text-[#27272a] md:text-6xl lg:text-8xl">
               <span
-                className="inline-block px-5 py-1 text-white"
+                className="inline-block px-4 pb-3 pt-0 text-white align-middle"
                 style={{
                   background: "linear-gradient(135deg, #6c5ce7 0%, #4f46e5 50%, #3b82f6 100%)",
                   transform: "skewX(-4deg)",
                 }}
               >
-                <span style={{ display: "inline-block", transform: "skewX(4deg)" }}>
-                  OO과 OO
+                <span style={{ display: "inline-block", transform: "skewX(4deg)", fontSize: "0.7em" }}>
+                  기획과 운영
                 </span>
               </span>
               <span className="ml-3">을 잘합니다</span>

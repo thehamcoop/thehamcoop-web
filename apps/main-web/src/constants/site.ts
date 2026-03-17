@@ -26,12 +26,20 @@ export const HERO = {
 
 export const PORTFOLIO_ITEMS = [
   {
+    id: 4,
+    slug: "fira",
+    title: "창업캠프 및 메이커톤",
+    subtitle: "전문가 멘토링 + 제작(PBL) 기반으로 '아이디어 구현/시제품 제작/발표·시상'까지 운영",
+    image: "/images/reasons/reason4.jpg",
+    bgColor: "#0d1b2a",
+  },
+  {
     id: 1,
     slug: "lotteworld",
     title: "공모전 및 시상식 운영",
     subtitle: "공모전 기획 및 운영 / 시상식 진행 및 아카이빙",
     image: "/images/reasons/reason1.png",
-    bgColor: "#1a1a2e",
+    bgColor: "#2d6a4f",
   },
   {
     id: 2,
@@ -39,7 +47,7 @@ export const PORTFOLIO_ITEMS = [
     title: "엔젤투자 밋업 설명회 투자자 심화교육",
     subtitle: "IR 피칭 + 패널토의 / 네트워킹\n투자심사보고서 작성, 기업 IR 실습 등 실전형 커리큘럼 운영",
     image: "/images/reasons/reason2.png",
-    bgColor: "#2d6a4f",
+    bgColor: "#1a1a2e",
   },
   {
     id: 3,
@@ -48,14 +56,6 @@ export const PORTFOLIO_ITEMS = [
     subtitle: "연수·설명회·성과공유회·캠페인 등 행사 운영",
     image: "/images/reasons/reason3.JPG",
     bgColor: "#2b4c6f",
-  },
-  {
-    id: 4,
-    slug: "fira",
-    title: "창업캠프 및 메이커톤",
-    subtitle: "전문가 멘토링 + 제작(PBL) 기반으로 '아이디어 구현/시제품 제작/발표·시상'까지 운영",
-    image: "/images/reasons/reason4.jpg",
-    bgColor: "#0d1b2a",
   },
 ] as const;
 

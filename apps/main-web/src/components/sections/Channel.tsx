@@ -5,29 +5,29 @@ import { motion, useMotionValue } from "framer-motion";
 
 const VIDEOS = [
   {
-    title: "AI로 4분 만에 광고 여러 개를 자동 생성하는 방법 (왕초보도 가능)",
-    thumbnail: "이 영상보다 더 자세한\nAI 광고 자동화 영상은 없습니다",
-    color: "#1a1a2e",
+    title: "2025 IoT RE:DESIGN THON (인터뷰포함)",
+    image: "/images/youtubes/youtube1.png",
+    url: "https://www.youtube.com/watch?v=_Q26osPjOXY&t=3s",
   },
   {
-    title: "언제까지 '사람'의 시간과 맞바꾸실 건가요?",
-    thumbnail: "직원 5명 몫,\n제가 혼자 합니다",
-    color: "#16213e",
+    title: "스케치영상ㅣ RE-UP Cycle Thon(GREEN TECH MAKER)",
+    image: "/images/youtubes/youtube2.png",
+    url: "https://www.youtube.com/watch?v=tvZnXH1nAUA&t=35s",
   },
   {
-    title: '"돈 버는 것 외엔 의미 없습니다" | 대모산개발단 CEO 고성현',
-    thumbnail: "성공은 운을 기다리지 않습니다\n우리는 직접 만들었습니다",
-    color: "#0f3460",
+    title: "[한국항공대학교 대학일자리플러스센터] 2025 창업 아이디어 경진대회",
+    image: "/images/youtubes/youtube3.png",
+    url: "https://www.youtube.com/watch?v=YzgohIBbHxo",
   },
   {
-    title: "바이브코딩으로 실제 서비스 런칭하기",
-    thumbnail: "코딩 없이\n서비스 만들기",
-    color: "#1a1a2e",
+    title: "2025 서울과학기술대학교 제품 개발 패키지",
+    image: "/images/youtubes/youtube4.png",
+    url: "https://www.youtube.com/watch?v=J0MJuTj3rs8",
   },
   {
-    title: "스타트업 MVP, 2주 만에 완성하는 법",
-    thumbnail: "빠르게 만들고\n빠르게 검증하세요",
-    color: "#16213e",
+    title: "2025 충청권 ICT이노베이션스퀘어 개발 역량 강화 멘토링 | (주)페어엑스 이범준 대표 강연",
+    image: "/images/youtubes/youtube5.png",
+    url: "https://www.youtube.com/watch?v=NmAuVE1Qfpg",
   },
 ];
 
@@ -75,9 +75,10 @@ export default function Channel() {
           href="https://www.youtube.com/@thehamcoop"
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 rounded-full bg-[#6C5CE7] px-8 py-4 text-lg font-semibold text-white transition-opacity hover:opacity-90"
+          className="shrink-0 rounded-3xl px-7 py-3 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:shadow-lg"
+          style={{ background: "linear-gradient(to right, #2DB7C1, #1A8A91)" }}
         >
-          유튜브 채널 바로가기 &gt;
+          유튜브 채널 바로가기 →
         </a>
       </div>
 
@@ -104,22 +105,27 @@ export default function Channel() {
               transition={{ duration: 0.4, ease: "easeInOut" }}
               className={`shrink-0 ${isCenter ? "w-full max-w-md" : "hidden w-full max-w-md md:block"}`}
             >
-              {/* 썸네일 */}
-              <div
-                className="pointer-events-none flex aspect-video items-center justify-center rounded-3xl p-8"
-                style={{ backgroundColor: video.color }}
+              <a
+                href={video.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+                style={{ pointerEvents: isCenter ? "auto" : "none" }}
               >
-                <p
-                  className="text-center text-xl font-bold text-white md:text-2xl"
-                  style={{ whiteSpace: "pre-line" }}
-                >
-                  {video.thumbnail}
+                {/* 썸네일 */}
+                <div className="aspect-video overflow-hidden rounded-3xl">
+                  <img
+                    src={video.image}
+                    alt={video.title}
+                    className="h-full w-full object-cover"
+                    draggable={false}
+                  />
+                </div>
+                {/* 제목 */}
+                <p className="mt-4 text-sm leading-relaxed text-gray-700 md:text-base">
+                  {video.title}
                 </p>
-              </div>
-              {/* 제목 */}
-              <p className="pointer-events-none mt-4 text-sm leading-relaxed text-gray-700 md:text-base">
-                {video.title}
-              </p>
+              </a>
             </motion.div>
           );
         })}

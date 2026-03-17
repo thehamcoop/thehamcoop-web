@@ -19,7 +19,7 @@ export default function Contact() {
           </h2>
 
           <Button variant="primary" size="lg" href="/consultation">
-            상담문의 작성하기
+            문의사항 작성하기
           </Button>
         </motion.div>
       </div>
