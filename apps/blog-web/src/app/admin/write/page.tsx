@@ -50,7 +50,7 @@ export default function AdminWritePage() {
     if (result.success) {
       setMessage({ type: "success", text: "글이 성공적으로 저장되었습니다." });
       setTitle("");
-      setCategorySlug("notice");
+      setCategorySlug("education");
       setIsPinned(false);
       setContent("");
     } else {
@@ -62,13 +62,48 @@ export default function AdminWritePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div
+      style={{
+        width: "100vw",
+        marginLeft: "calc(-50vw + 50%)",
+        minHeight: "100vh",
+        backgroundColor: "#f9fafb",
+      }}
+    >
       {/* ── Sticky Header ── */}
-      <header className="sticky top-0 z-50 border-b border-gray-200/60 bg-white/70 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-3">
+      <div
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 50,
+          borderBottom: "1px solid rgba(229,231,235,0.6)",
+          backgroundColor: "rgba(255,255,255,0.8)",
+          backdropFilter: "blur(20px)",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "56rem",
+            margin: "0 auto",
+            padding: "0.875rem 1.5rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           <button
             onClick={() => router.back()}
-            className="flex items-center gap-1.5 text-sm font-medium text-gray-500 transition-colors hover:text-text-primary"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.375rem",
+              fontSize: "0.875rem",
+              fontWeight: 500,
+              color: "#6b7280",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+            }}
           >
             <svg
               width="18"
@@ -86,30 +121,57 @@ export default function AdminWritePage() {
             뒤로가기
           </button>
 
-          <div className="flex items-center gap-3">
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
             {saving && (
-              <span className="text-xs text-gray-400">저장 중...</span>
+              <span style={{ fontSize: "0.75rem", color: "#9ca3af" }}>
+                저장 중...
+              </span>
             )}
             <button
               onClick={handleSubmit}
               disabled={saving}
-              className="rounded-lg bg-[#1a1a3e] px-5 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-[#2a2a5e] hover:shadow-md disabled:opacity-50"
+              style={{
+                padding: "0.625rem 1.75rem",
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                color: "#ffffff",
+                backgroundColor: "#1a1a3e",
+                border: "none",
+                borderRadius: "0.625rem",
+                cursor: saving ? "not-allowed" : "pointer",
+                opacity: saving ? 0.5 : 1,
+                boxShadow: "0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                if (!saving) {
+                  e.currentTarget.style.backgroundColor = "#2a2a5e";
+                  e.currentTarget.style.boxShadow = "0 4px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "#1a1a3e";
+                e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)";
+              }}
             >
               게시하기
             </button>
           </div>
         </div>
-      </header>
+      </div>
 
       {/* ── 알림 메시지 ── */}
       {message && (
-        <div className="mx-auto max-w-4xl px-6 pt-4">
+        <div style={{ maxWidth: "56rem", margin: "0 auto", padding: "1rem 1.5rem 0" }}>
           <div
-            className={`rounded-lg px-4 py-3 text-sm font-medium transition-all ${
-              message.type === "success"
-                ? "bg-emerald-50 text-emerald-700"
-                : "bg-red-50 text-red-600"
-            }`}
+            style={{
+              padding: "0.75rem 1rem",
+              borderRadius: "0.5rem",
+              fontSize: "0.875rem",
+              fontWeight: 500,
+              backgroundColor: message.type === "success" ? "#ecfdf5" : "#fef2f2",
+              color: message.type === "success" ? "#047857" : "#dc2626",
+            }}
           >
             {message.text}
           </div>
@@ -117,57 +179,91 @@ export default function AdminWritePage() {
       )}
 
       {/* ── 메인 카드 ── */}
-      <main className="mx-auto max-w-4xl px-6 py-10">
-        <div className="rounded-2xl border border-gray-200/80 bg-white shadow-sm">
+      <div
+        style={{
+          maxWidth: "56rem",
+          margin: "0 auto",
+          padding: "2.5rem 1.5rem",
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "#ffffff",
+            borderRadius: "1rem",
+            border: "1px solid rgba(229,231,235,0.8)",
+            boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+          }}
+        >
           {/* 메타데이터 섹션 */}
-          <div className="space-y-4 px-10 pt-10 pb-6">
+          <div style={{ padding: "2.5rem 2.5rem 1.5rem" }}>
             {/* 제목 */}
-            <div className="group relative">
+            <div>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="제목을 입력하세요"
-                className="w-full border-none bg-transparent text-4xl font-bold text-text-primary outline-none placeholder:text-gray-200"
+                style={{
+                  width: "100%",
+                  border: "none",
+                  outline: "none",
+                  backgroundColor: "transparent",
+                  fontSize: "2.25rem",
+                  fontWeight: 700,
+                  color: "#1a1a2e",
+                  lineHeight: 1.2,
+                }}
               />
-              <div className="mt-2 h-0.5 origin-left scale-x-0 bg-[#1a1a3e] transition-transform duration-300 group-focus-within:scale-x-100" />
             </div>
 
             {/* 카테고리 & 상단 고정 */}
-            <div className="flex items-center gap-4 pt-2">
-              <div className="relative">
-                <select
-                  value={categorySlug}
-                  onChange={(e) => setCategorySlug(e.target.value)}
-                  className="cursor-pointer appearance-none rounded-full border border-gray-200 bg-gray-50 py-1.5 pr-8 pl-3.5 text-xs font-medium text-gray-600 outline-none transition-all hover:border-gray-300 hover:bg-gray-100 focus:border-[#1a1a3e] focus:bg-white"
-                >
-                  {CATEGORIES.map((cat) => (
-                    <option key={cat.value} value={cat.value}>
-                      {cat.label}
-                    </option>
-                  ))}
-                </select>
-                <svg
-                  className="pointer-events-none absolute top-1/2 right-2.5 -translate-y-1/2 text-gray-400"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginTop: "1rem" }}>
+              <select
+                value={categorySlug}
+                onChange={(e) => setCategorySlug(e.target.value)}
+                style={{
+                  appearance: "none",
+                  padding: "0.375rem 2rem 0.375rem 0.875rem",
+                  fontSize: "0.75rem",
+                  fontWeight: 500,
+                  color: "#4b5563",
+                  backgroundColor: "#f9fafb",
+                  border: "1px solid #e5e7eb",
+                  borderRadius: "9999px",
+                  cursor: "pointer",
+                  outline: "none",
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 0.5rem center",
+                }}
+              >
+                {CATEGORIES.map((cat) => (
+                  <option key={cat.value} value={cat.value}>
+                    {cat.label}
+                  </option>
+                ))}
+              </select>
 
-              <label className="flex cursor-pointer items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-3.5 py-1.5 text-xs font-medium text-gray-600 transition-all hover:border-gray-300 hover:bg-gray-100">
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.375rem",
+                  padding: "0.375rem 0.875rem",
+                  fontSize: "0.75rem",
+                  fontWeight: 500,
+                  color: "#4b5563",
+                  backgroundColor: "#f9fafb",
+                  border: "1px solid #e5e7eb",
+                  borderRadius: "9999px",
+                  cursor: "pointer",
+                }}
+              >
                 <input
                   type="checkbox"
                   checked={isPinned}
                   onChange={(e) => setIsPinned(e.target.checked)}
-                  className="h-3.5 w-3.5 accent-[#1a1a3e]"
+                  style={{ width: "0.875rem", height: "0.875rem", accentColor: "#1a1a3e" }}
                 />
                 상단 고정
               </label>
@@ -175,16 +271,16 @@ export default function AdminWritePage() {
           </div>
 
           {/* 구분선 */}
-          <div className="mx-10">
-            <div className="h-px bg-gray-100" />
+          <div style={{ margin: "0 2.5rem" }}>
+            <div style={{ height: "1px", backgroundColor: "#f3f4f6" }} />
           </div>
 
           {/* 에디터 영역 */}
-          <div className="px-10 pt-6 pb-10">
+          <div style={{ padding: "1.5rem 2.5rem 2.5rem" }}>
             <DynamicEditor onChange={setContent} />
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

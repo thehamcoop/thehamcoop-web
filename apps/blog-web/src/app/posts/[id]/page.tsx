@@ -35,32 +35,6 @@ export default function PostDetail() {
     if (id) fetchPost();
   }, [id]);
 
-  if (loading) {
-    return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <p className="text-sm text-gray-400">로딩 중...</p>
-      </div>
-    );
-  }
-
-  if (!post) {
-    return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900">
-            포스트를 찾을 수 없습니다.
-          </h1>
-          <Link
-            href="/"
-            className="mt-4 inline-block text-sm text-accent hover:underline"
-          >
-            ← 블로그로 돌아가기
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString("ko-KR", {
       year: "numeric",
@@ -69,38 +43,170 @@ export default function PostDetail() {
     });
   };
 
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="mx-auto max-w-3xl px-4 py-16 md:px-8"
-    >
-      <Link
-        href="/"
-        className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-800"
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "60vh",
+        }}
       >
-        ← 블로그로 돌아가기
-      </Link>
+        <p style={{ fontSize: "0.875rem", color: "#9ca3af" }}>로딩 중...</p>
+      </div>
+    );
+  }
 
-      <div className="mt-8">
-        <span className="inline-block rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent-dark">
-          {CATEGORY_MAP[post.category_slug] || post.category_slug}
-        </span>
-        <h1 className="mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
-          {post.title}
-        </h1>
-        <div className="mt-3 flex items-center gap-3 text-sm text-gray-400">
-          <span>{post.author_name}</span>
-          <span>·</span>
-          <span>{formatDate(post.created_at)}</span>
+  if (!post) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "60vh",
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <h1
+            style={{ fontSize: "1.5rem", fontWeight: 700, color: "#111827" }}
+          >
+            포스트를 찾을 수 없습니다.
+          </h1>
+          <Link
+            href="/"
+            style={{
+              display: "inline-block",
+              marginTop: "1rem",
+              fontSize: "0.875rem",
+              color: "#2DB7C1",
+            }}
+          >
+            ← 블로그로 돌아가기
+          </Link>
         </div>
       </div>
+    );
+  }
 
-      {/* BlockNote 본문 렌더링 */}
-      <div className="mt-10">
-        <DynamicViewer content={post.content} />
+  return (
+    <div
+      style={{
+        width: "100vw",
+        marginLeft: "calc(-50vw + 50%)",
+        minHeight: "100vh",
+        backgroundColor: "#f9fafb",
+      }}
+    >
+      {/* ── 상단 헤더 영역 ── */}
+      <div
+        style={{
+          backgroundColor: "#1a1a3e",
+          padding: "3rem 1.5rem 3.5rem",
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          style={{ maxWidth: "48rem", margin: "0 auto" }}
+        >
+          <Link
+            href="/"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.375rem",
+              fontSize: "0.875rem",
+              color: "rgba(255,255,255,0.6)",
+              textDecoration: "none",
+            }}
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M19 12H5" />
+              <path d="m12 19-7-7 7-7" />
+            </svg>
+            블로그로 돌아가기
+          </Link>
+
+          <div style={{ marginTop: "1.5rem" }}>
+            <span
+              style={{
+                display: "inline-block",
+                padding: "0.25rem 0.875rem",
+                fontSize: "0.75rem",
+                fontWeight: 600,
+                color: "#2DB7C1",
+                backgroundColor: "rgba(45,183,193,0.15)",
+                borderRadius: "9999px",
+              }}
+            >
+              {CATEGORY_MAP[post.category_slug] || post.category_slug}
+            </span>
+            <h1
+              style={{
+                marginTop: "1rem",
+                fontSize: "2.25rem",
+                fontWeight: 800,
+                color: "#ffffff",
+                lineHeight: 1.25,
+              }}
+            >
+              {post.title}
+            </h1>
+            <div
+              style={{
+                marginTop: "1rem",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                fontSize: "0.875rem",
+                color: "rgba(255,255,255,0.5)",
+              }}
+            >
+              <span>{post.author_name}</span>
+              <span>·</span>
+              <span>{formatDate(post.created_at)}</span>
+              <span>·</span>
+              <span>조회 {post.views}</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
-    </motion.article>
+
+      {/* ── 본문 카드 ── */}
+      <div
+        style={{
+          maxWidth: "48rem",
+          margin: "-1.5rem auto 0",
+          padding: "0 1.5rem 4rem",
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          style={{
+            backgroundColor: "#ffffff",
+            borderRadius: "1rem",
+            border: "1px solid rgba(229,231,235,0.8)",
+            boxShadow: "0 4px 6px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.06)",
+            padding: "2.5rem",
+          }}
+        >
+          <DynamicViewer content={post.content} />
+        </motion.div>
+      </div>
+    </div>
   );
 }
