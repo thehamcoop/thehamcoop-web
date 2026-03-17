@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
@@ -15,8 +16,10 @@ const CATEGORIES = [
   { value: "rnd", label: "R&D" },
 ];
 
-export default function BlogHome() {
+function BlogContent() {
   const { isAdmin } = useAdmin();
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("q") || "";
   const [activeCategory, setActiveCategory] = useState("all");
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
@@ -35,13 +38,17 @@ export default function BlogHome() {
         query = query.eq("category_slug", activeCategory);
       }
 
+      if (searchQuery) {
+        query = query.ilike("title", `%${searchQuery}%`);
+      }
+
       const { data } = await query;
       setPosts((data as Post[]) || []);
       setLoading(false);
     }
 
     fetchPosts();
-  }, [activeCategory]);
+  }, [activeCategory, searchQuery]);
 
   const getCategoryLabel = (slug: string) => {
     return CATEGORIES.find((c) => c.value === slug)?.label || slug;
@@ -59,12 +66,12 @@ export default function BlogHome() {
     <div>
       {/* Hero Banner */}
       <section
-        className="relative overflow-hidden bg-[#1a1a3e]"
+        className="relative overflow-hidden bg-[#164761]"
         style={{ padding: "8rem 2rem" }}
       >
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute top-0 right-0 h-full w-1/2 bg-linear-to-bl from-[#2d2d6e]/80 to-transparent" />
-          <div className="absolute bottom-0 left-1/4 h-1/2 w-1/2 bg-linear-to-t from-[#3a1a5e]/40 to-transparent" />
+          <div className="absolute top-0 right-0 h-full w-1/2 bg-linear-to-bl from-accent-dark/30 to-transparent" />
+          <div className="absolute bottom-0 left-1/4 h-1/2 w-1/2 bg-linear-to-t from-accent/20 to-transparent" />
         </div>
         <div
           className="relative"
@@ -146,6 +153,18 @@ export default function BlogHome() {
           )}
         </div>
 
+        {/* 검색 중 표시 */}
+        {searchQuery && (
+          <div className="mb-6 flex items-center justify-between">
+            <p className="text-sm text-gray-500">
+              <span className="font-semibold text-[#164761]">&ldquo;{searchQuery}&rdquo;</span> 검색 결과
+            </p>
+            <Link href="/" className="text-xs text-gray-400 hover:text-gray-600">
+              검색 초기화
+            </Link>
+          </div>
+        )}
+
         {/* Loading */}
         {loading && (
           <div className="py-20 text-center text-sm text-gray-400">
@@ -156,15 +175,13 @@ export default function BlogHome() {
         {/* Empty */}
         {!loading && posts.length === 0 && (
           <div className="py-20 text-center text-sm text-gray-400">
-            아직 작성된 글이 없습니다.
+            {searchQuery ? "검색 결과가 없습니다." : "아직 작성된 글이 없습니다."}
           </div>
         )}
 
         {/* Post Grid - 3 columns */}
         {!loading && posts.length > 0 && (
-          <div
-            className="grid grid-cols-1 gap-8 md:grid-cols-3"
-          >
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {posts.map((post, index) => (
               <motion.div
                 key={post.id}
@@ -187,9 +204,6 @@ export default function BlogHome() {
                   {/* Content */}
                   <div className="mt-4">
                     <h2 className="text-base font-bold text-gray-900 transition-colors group-hover:text-accent">
-                      {post.is_pinned && (
-                        <span className="mr-1.5 text-accent">[고정]</span>
-                      )}
                       {post.title}
                     </h2>
                     <div className="mt-3 flex items-center gap-2 text-xs text-gray-400">
@@ -207,5 +221,17 @@ export default function BlogHome() {
         )}
       </section>
     </div>
+  );
+}
+
+export default function BlogHome() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <p className="text-sm text-gray-400">로딩 중...</p>
+      </div>
+    }>
+      <BlogContent />
+    </Suspense>
   );
 }

@@ -7,14 +7,15 @@ export default function Hero() {
     <section className="relative flex min-h-screen items-start justify-center overflow-hidden bg-text-primary pt-32 md:pt-40">
       {/* 배경 빗각 THEHAMCOOP 텍스트 */}
       <div
-        className="pointer-events-none absolute top-[50%] left-0 right-0 flex justify-center"
+        className="pointer-events-none absolute top-[58%] left-0 right-0 flex flex-col items-center md:top-[36%]"
         aria-hidden="true"
+        style={{ transform: "rotate(-10deg)" }}
       >
-        <span
-          className="whitespace-nowrap text-[14.8vw] leading-none font-black text-[#5BC8C8] select-none"
-          style={{ transform: "rotate(-10deg)" }}
-        >
-          THEHAMCOOP
+        <span className="text-[18vw] leading-[0.9] font-black tracking-[0.08em] text-[#5BC8C8] md:text-[#5BC8C8]/60 select-none">
+          THEHAM
+        </span>
+        <span className="text-[18vw] leading-[0.9] font-black tracking-[0.08em] text-[#5BC8C8] md:text-[#5BC8C8]/60 select-none">
+          COOP
         </span>
       </div>
 
@@ -50,7 +51,9 @@ export default function Hero() {
           className="flex flex-row gap-4"
         >
           <a
-            href="#about"
+            href="/files/theham-profile.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="rounded-full border bg-white px-6 py-3 text-sm font-semibold transition-colors hover:bg-gray-50 md:px-8 md:py-4 md:text-base"
             style={{ borderColor: "#2DB7C1", color: "#2DB7C1" }}
           >

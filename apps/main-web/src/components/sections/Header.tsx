@@ -45,7 +45,9 @@ export default function Header() {
 
         <div className="hidden items-center gap-3 md:flex">
           <a
-            href="#about"
+            href="/files/theham-profile.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
             className="rounded-3xl border px-5 py-2 text-sm font-medium transition-colors hover:bg-gray-50"
             style={{ borderColor: "#2DB7C1", color: "#2DB7C1" }}
           >
@@ -100,7 +102,9 @@ export default function Header() {
                 블로그
               </a>
               <a
-                href="#about"
+                href="/files/theham-profile.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setIsMenuOpen(false)}
                 className=" text-gray-600 transition-colors hover:text-gray-900"
               >

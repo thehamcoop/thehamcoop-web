@@ -8,6 +8,7 @@ import { supabase } from "@/lib/supabase";
 import type { Post } from "@/types/database.types";
 import DynamicViewer from "@/components/DynamicViewer";
 import { useAdmin } from "@/context/AdminContext";
+import { deletePost } from "@/app/admin/write/actions";
 
 const CATEGORY_MAP: Record<string, string> = {
   education: "교육",
@@ -43,10 +44,9 @@ export default function PostDetail() {
     if (!confirm("이 게시글을 삭제하시겠습니까?")) return;
 
     setDeleting(true);
-    await supabase.from("attachments").delete().eq("post_id", id as string);
-    const { error } = await supabase.from("posts").delete().eq("id", id as string);
+    const result = await deletePost(id as string);
 
-    if (error) {
+    if (!result.success) {
       alert("삭제에 실패했습니다.");
       setDeleting(false);
     } else {
