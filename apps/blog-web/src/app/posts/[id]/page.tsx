@@ -108,7 +108,7 @@ export default function PostDetail() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          style={{ maxWidth: "48rem", margin: "0 auto" }}
+          style={{ maxWidth: "48rem", margin: "0 auto", padding: "0 1.5rem" }}
         >
           <Link
             href="/"
@@ -172,11 +172,7 @@ export default function PostDetail() {
                 color: "rgba(255,255,255,0.5)",
               }}
             >
-              <span>{post.author_name}</span>
-              <span>·</span>
               <span>{formatDate(post.created_at)}</span>
-              <span>·</span>
-              <span>조회 {post.views}</span>
             </div>
           </div>
         </motion.div>

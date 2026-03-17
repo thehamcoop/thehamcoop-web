@@ -93,7 +93,7 @@ export default function Header() {
 
           {/* 문의하기 버튼 */}
           <a
-            href="https://www.thehamcoop.kr/consultation"
+            href="http://localhost:3000/consultation"
             className="rounded-3xl px-5 py-2 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:shadow-lg"
             style={{
               background: "linear-gradient(to right, #2DB7C1, #1A8A91)",
@@ -139,7 +139,7 @@ export default function Header() {
                 블로그
               </Link>
               <a
-                href="https://www.thehamcoop.kr/consultation"
+                href="http://localhost:3000/consultation"
                 onClick={() => setIsMenuOpen(false)}
                 className="text-gray-600 transition-colors hover:text-gray-900"
               >

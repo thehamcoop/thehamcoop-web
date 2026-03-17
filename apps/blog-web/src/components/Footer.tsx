@@ -22,7 +22,7 @@ export default function Footer() {
           <ul className="flex flex-col gap-2">
             <li>
               <a
-                href="https://www.thehamcoop.kr/consultation"
+                href="http://localhost:3000/consultation"
                 className="text-sm text-gray-500 transition-colors hover:text-gray-900"
               >
                 문의하기
