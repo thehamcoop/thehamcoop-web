@@ -89,10 +89,10 @@ export default function Partners() {
 
       {/* 중앙 텍스트 */}
       <div className="relative z-10 mx-auto max-w-3xl text-center">
-        <p className="mb-4 text-2xl font-bold text-[#6C5CE7] md:text-4xl">
+        <p className="mb-4 text-lg font-bold text-[#6C5CE7] md:text-4xl">
           더함협동조합은 지금
         </p>
-        <h2 className="text-4xl leading-tight font-bold text-white md:text-6xl">
+        <h2 className="text-2xl leading-tight font-bold text-white md:text-6xl">
           대학교육과 제품 개발 분야에서
           <br />
           많은 협력사와 프로젝트를

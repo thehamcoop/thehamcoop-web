@@ -27,13 +27,30 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Contact */}
+        {/* SNS */}
         <div>
-          <h4 className="mb-3 text-sm font-semibold">연락처</h4>
+          <h4 className="mb-3 text-sm font-semibold">채널</h4>
           <ul className="flex flex-col gap-2 text-sm text-text-secondary">
-            <li>{FOOTER.address}</li>
-            <li>{FOOTER.phone}</li>
-            <li>{FOOTER.email}</li>
+            <li>
+              <a href="http://pf.kakao.com/_XMxaNxj" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-text-primary">
+                카카오톡 채널
+              </a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/@thehamcoop" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-text-primary">
+                유튜브
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/thehamcoop/" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-text-primary">
+                인스타그램
+              </a>
+            </li>
+            <li>
+              <a href="http://blog.naver.com/thahamcoop" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-text-primary">
+                네이버 블로그
+              </a>
+            </li>
           </ul>
         </div>
       </div>
