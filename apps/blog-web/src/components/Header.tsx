@@ -4,6 +4,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
+const MAIN_URL = process.env.NEXT_PUBLIC_MAIN_URL || "http://localhost:3000";
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -13,7 +15,7 @@ export default function Header() {
     <header className="fixed top-0 z-50 w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg">
       <div className="mx-auto flex items-center justify-between px-2 py-4 md:px-4 lg:px-6 xl:px-8 2xl:px-10">
         <div className="flex items-center gap-8">
-          <a href="http://localhost:3000" className="flex items-center gap-4 text-xl font-bold">
+          <a href={MAIN_URL} className="flex items-center gap-4 text-xl font-bold">
             <img
               src="/images/thehamcoop-logo.svg"
               alt="logo"
@@ -93,7 +95,7 @@ export default function Header() {
 
           {/* 문의하기 버튼 */}
           <a
-            href="http://localhost:3000/consultation"
+            href={`${MAIN_URL}/consultation`}
             className="rounded-3xl px-5 py-2 text-sm font-medium text-white transition-all hover:-translate-y-0.5 hover:shadow-lg"
             style={{
               background: "linear-gradient(to right, #2DB7C1, #1A8A91)",
@@ -139,7 +141,7 @@ export default function Header() {
                 블로그
               </Link>
               <a
-                href="http://localhost:3000/consultation"
+                href={`${MAIN_URL}/consultation`}
                 onClick={() => setIsMenuOpen(false)}
                 className="text-gray-600 transition-colors hover:text-gray-900"
               >

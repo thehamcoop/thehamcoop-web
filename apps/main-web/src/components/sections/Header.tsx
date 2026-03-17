@@ -4,6 +4,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NAV_LINKS, SITE } from "@/constants/site";
 
+const BLOG_URL = process.env.NEXT_PUBLIC_BLOG_URL || "http://localhost:3001";
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -31,7 +33,7 @@ export default function Header() {
           {/* Desktop nav */}
           <nav className="hidden items-center gap-6 md:flex">
             <a
-              href="http://localhost:3001"
+              href={BLOG_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm font-semibold text-gray-600 transition-colors hover:text-gray-900"
@@ -89,7 +91,7 @@ export default function Header() {
           >
             <div className="flex flex-col gap-4 px-6 py-6">
               <a
-                href="http://localhost:3001"
+                href={BLOG_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsMenuOpen(false)}
