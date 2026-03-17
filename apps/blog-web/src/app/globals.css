@@ -20,12 +20,6 @@
     -apple-system, sans-serif;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
   font-family: var(--font-sans);
   color: var(--color-text-primary);
@@ -41,4 +35,13 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #c0c0c0;
   border-radius: 3px;
+}
+
+/* Hide scrollbar for category tabs */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }

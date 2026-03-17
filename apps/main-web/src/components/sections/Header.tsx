@@ -31,7 +31,7 @@ export default function Header() {
           {/* Desktop nav */}
           <nav className="hidden items-center gap-6 md:flex">
             <a
-              href="https://blog.thehamcoop.kr"
+              href="http://localhost:3001"
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm font-semibold text-gray-600 transition-colors hover:text-gray-900"
@@ -52,7 +52,9 @@ export default function Header() {
           <a
             href="/consultation"
             className="rounded-3xl px-5 py-2 text-sm font-medium text-white transition-shadow hover:shadow-lg"
-            style={{ background: "linear-gradient(to right, #2DB7C1, #1A8A91)" }}
+            style={{
+              background: "linear-gradient(to right, #2DB7C1, #1A8A91)",
+            }}
           >
             상담 신청
           </a>
@@ -87,7 +89,7 @@ export default function Header() {
           >
             <div className="flex flex-col gap-4 px-6 py-6">
               <a
-                href="https://blog.thehamcoop.kr"
+                href="http://localhost:3001"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsMenuOpen(false)}

@@ -25,7 +25,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-4 text-base font-medium text-black md:text-lg"
+          className="mb-4 text-base font-medium text-gray-600 md:text-lg lg:text-3xl"
         >
           무책임한 업체들 때문에 많이 힘드셨죠?
         </motion.p>
@@ -35,7 +35,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="mb-10 text-3xl leading-tight font-bold text-black md:text-5xl lg:text-6xl"
+          className="mb-10 text-xl leading-tight font-bold text-black sm:text-xl md:text-2xl lg:text-6xl"
         >
           창업·제품 기획·교육·판매·투자까지
           <br />
@@ -51,14 +51,14 @@ export default function Hero() {
         >
           <a
             href="#about"
-            className="rounded-full border bg-white px-8 py-4 text-base font-semibold transition-colors hover:bg-gray-50"
+            className="rounded-full border bg-white px-6 py-3 text-sm font-semibold transition-colors hover:bg-gray-50 md:px-8 md:py-4 md:text-base"
             style={{ borderColor: "#2DB7C1", color: "#2DB7C1" }}
           >
             회사 소개서
           </a>
           <a
             href="/consultation"
-            className="rounded-full bg-linear-to-r from-accent-purple to-accent-blue px-8 py-4 text-base font-semibold text-white transition-shadow hover:shadow-lg hover:shadow-accent-purple/25"
+            className="rounded-full bg-linear-to-r from-accent-purple to-accent-blue px-6 py-3 text-sm font-semibold text-white transition-shadow hover:shadow-lg hover:shadow-accent-purple/25 md:px-8 md:py-4 md:text-base"
           >
             상담하기
           </a>
