@@ -98,10 +98,10 @@ export default function BlogHome() {
             <button
               key={category.value}
               onClick={() => setActiveCategory(category.value)}
-              className={`whitespace-nowrap rounded-full text-base font-semibold transition-all duration-200 ${
+              className={`whitespace-nowrap rounded-full text-sm font-semibold transition-all duration-200 ${
                 activeCategory === category.value
-                  ? "bg-[#1a1a3e] text-white shadow-sm px-12 py-5"
-                  : "bg-gray-50 text-gray-500 hover:bg-gray-200 hover:text-gray-700 px-10 py-4"
+                  ? "bg-[#1a1a3e] text-white shadow-sm px-6 py-2.5"
+                  : "bg-gray-50 text-gray-500 hover:bg-gray-200 hover:text-gray-700 px-5 py-2"
               }`}
             >
               {category.label}

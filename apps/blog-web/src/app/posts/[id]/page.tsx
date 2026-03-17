@@ -93,10 +93,8 @@ export default function PostDetail() {
   return (
     <div
       style={{
-        width: "100vw",
-        marginLeft: "calc(-50vw + 50%)",
         minHeight: "100vh",
-        backgroundColor: "#f9fafb",
+        backgroundColor: "#ffffff",
       }}
     >
       {/* ── 상단 헤더 영역 ── */}
@@ -184,29 +182,19 @@ export default function PostDetail() {
         </motion.div>
       </div>
 
-      {/* ── 본문 카드 ── */}
-      <div
+      {/* ── 본문 ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.15 }}
         style={{
           maxWidth: "48rem",
-          margin: "-1.5rem auto 0",
-          padding: "0 1.5rem 4rem",
+          margin: "0 auto",
+          padding: "2.5rem 1.5rem 4rem",
         }}
       >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.15 }}
-          style={{
-            backgroundColor: "#ffffff",
-            borderRadius: "1rem",
-            border: "1px solid rgba(229,231,235,0.8)",
-            boxShadow: "0 4px 6px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.06)",
-            padding: "2.5rem",
-          }}
-        >
-          <DynamicViewer content={post.content} />
-        </motion.div>
-      </div>
+        <DynamicViewer content={post.content} />
+      </motion.div>
     </div>
   );
 }
