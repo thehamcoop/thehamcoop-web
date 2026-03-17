@@ -68,7 +68,7 @@ export default function BlogHome() {
         </div>
         <div
           className="relative"
-          style={{ maxWidth: "64rem", margin: "0 auto" }}
+          style={{ maxWidth: "64rem", margin: "0 auto", padding: "0 2rem" }}
         >
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -112,9 +112,36 @@ export default function BlogHome() {
           {isAdmin && (
             <Link
               href="/admin/write"
-              className="ml-auto whitespace-nowrap rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+              style={{
+                marginLeft: "auto",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.375rem",
+                padding: "0.375rem 1rem",
+                fontSize: "0.8125rem",
+                fontWeight: 500,
+                color: "#1a1a3e",
+                border: "1px solid rgba(26,26,62,0.25)",
+                borderRadius: "0.5rem",
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+                transition: "all 0.2s",
+              }}
             >
-              + 글 작성
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                <path d="m15 5 4 4" />
+              </svg>
+              글 작성
             </Link>
           )}
         </div>
