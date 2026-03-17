@@ -185,9 +185,6 @@ export default function BlogHome() {
                   {/* Content */}
                   <div className="mt-4">
                     <h2 className="text-base font-bold text-gray-900 transition-colors group-hover:text-accent">
-                      {post.is_pinned && (
-                        <span className="mr-1.5 text-accent">[고정]</span>
-                      )}
                       {post.title}
                     </h2>
                     <div className="mt-3 flex items-center gap-2 text-xs text-gray-400">
