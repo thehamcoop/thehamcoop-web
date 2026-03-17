@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -17,8 +17,10 @@ const CATEGORY_MAP: Record<string, string> = {
 
 export default function PostDetail() {
   const { id } = useParams();
+  const router = useRouter();
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     async function fetchPost() {
@@ -34,6 +36,21 @@ export default function PostDetail() {
 
     if (id) fetchPost();
   }, [id]);
+
+  const handleDelete = async () => {
+    if (!confirm("이 게시글을 삭제하시겠습니까?")) return;
+
+    setDeleting(true);
+    await supabase.from("attachments").delete().eq("post_id", id as string);
+    const { error } = await supabase.from("posts").delete().eq("id", id as string);
+
+    if (error) {
+      alert("삭제에 실패했습니다.");
+      setDeleting(false);
+    } else {
+      router.push("/");
+    }
+  };
 
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString("ko-KR", {
@@ -178,6 +195,42 @@ export default function PostDetail() {
               >
                 {formatDate(post.created_at)}
               </span>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <button
+                onClick={handleDelete}
+                disabled={deleting}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.375rem",
+                  padding: "0.375rem 1rem",
+                  fontSize: "0.8125rem",
+                  fontWeight: 500,
+                  color: "rgba(255,150,150,0.9)",
+                  border: "1px solid rgba(255,150,150,0.35)",
+                  borderRadius: "0.5rem",
+                  background: "none",
+                  cursor: deleting ? "not-allowed" : "pointer",
+                  opacity: deleting ? 0.5 : 1,
+                  transition: "all 0.2s",
+                }}
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M3 6h18" />
+                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                </svg>
+                {deleting ? "삭제 중..." : "삭제"}
+              </button>
               <Link
                 href={`/admin/edit/${post.id}`}
                 style={{
@@ -209,6 +262,7 @@ export default function PostDetail() {
                 </svg>
                 수정
               </Link>
+              </div>
             </div>
           </div>
         </motion.div>
