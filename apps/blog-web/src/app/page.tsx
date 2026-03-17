@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import type { Post } from "@/types/database.types";
+import { useAdmin } from "@/context/AdminContext";
 
 const CATEGORIES = [
   { value: "all", label: "전체" },
@@ -15,6 +16,7 @@ const CATEGORIES = [
 ];
 
 export default function BlogHome() {
+  const { isAdmin } = useAdmin();
   const [activeCategory, setActiveCategory] = useState("all");
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
@@ -107,12 +109,14 @@ export default function BlogHome() {
               {category.label}
             </button>
           ))}
-          <Link
-            href="/admin/write"
-            className="ml-auto whitespace-nowrap rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
-          >
-            + 글 작성
-          </Link>
+          {isAdmin && (
+            <Link
+              href="/admin/write"
+              className="ml-auto whitespace-nowrap rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+            >
+              + 글 작성
+            </Link>
+          )}
         </div>
 
         {/* Loading */}

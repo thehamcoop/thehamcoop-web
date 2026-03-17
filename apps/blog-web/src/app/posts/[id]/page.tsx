@@ -7,6 +7,7 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import type { Post } from "@/types/database.types";
 import DynamicViewer from "@/components/DynamicViewer";
+import { useAdmin } from "@/context/AdminContext";
 
 const CATEGORY_MAP: Record<string, string> = {
   education: "교육",
@@ -18,6 +19,7 @@ const CATEGORY_MAP: Record<string, string> = {
 export default function PostDetail() {
   const { id } = useParams();
   const router = useRouter();
+  const { isAdmin } = useAdmin();
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(false);
@@ -195,7 +197,7 @@ export default function PostDetail() {
               >
                 {formatDate(post.created_at)}
               </span>
-              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              {isAdmin && <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
               <button
                 onClick={handleDelete}
                 disabled={deleting}
@@ -262,7 +264,7 @@ export default function PostDetail() {
                 </svg>
                 수정
               </Link>
-              </div>
+              </div>}
             </div>
           </div>
         </motion.div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { AdminProvider } from "@/context/AdminContext";
 
 export const metadata: Metadata = {
   title: "더함 협동조합 블로그",
@@ -24,9 +25,11 @@ export default function RootLayout({
         />
       </head>
       <body className="flex min-h-screen flex-col">
-        <Header />
-        <main className="flex-1 pt-16">{children}</main>
-        <Footer />
+        <AdminProvider>
+          <Header />
+          <main className="flex-1 pt-16">{children}</main>
+          <Footer />
+        </AdminProvider>
       </body>
     </html>
   );
