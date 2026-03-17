@@ -73,6 +73,16 @@ export default function Viewer({ content }: ViewerProps) {
           border: none;
           border-radius: 0;
         }
+        .viewer-wrapper [data-content-type="codeBlock"] {
+          background-color: #F1F1F5 !important;
+          border-radius: 0.5rem;
+        }
+        .viewer-wrapper [data-content-type="codeBlock"] code,
+        .viewer-wrapper [data-content-type="codeBlock"] pre,
+        .viewer-wrapper [data-content-type="codeBlock"] span,
+        .viewer-wrapper [data-content-type="codeBlock"] * {
+          color: #111111 !important;
+        }
         .viewer-wrapper [data-text-color="gray"] .bn-inline-content {
           font-size: 0;
           line-height: 0;

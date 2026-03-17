@@ -81,6 +81,16 @@ export default function Editor({ onChange, initialContent }: EditorProps) {
         .editor-wrapper .bn-block-group {
           margin: 0 auto;
         }
+        .editor-wrapper [data-content-type="codeBlock"] {
+          background-color: #F1F1F5 !important;
+          border-radius: 0.5rem;
+        }
+        .editor-wrapper [data-content-type="codeBlock"] code,
+        .editor-wrapper [data-content-type="codeBlock"] pre,
+        .editor-wrapper [data-content-type="codeBlock"] span,
+        .editor-wrapper [data-content-type="codeBlock"] * {
+          color: #111111 !important;
+        }
         .editor-wrapper [data-text-color="gray"] .bn-inline-content {
           font-size: 0;
           line-height: 0;
