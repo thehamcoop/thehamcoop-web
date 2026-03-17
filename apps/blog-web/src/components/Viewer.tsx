@@ -73,6 +73,15 @@ export default function Viewer({ content }: ViewerProps) {
           border: none;
           border-radius: 0;
         }
+        .viewer-wrapper [data-text-color="gray"] .bn-inline-content {
+          font-size: 0;
+          line-height: 0;
+          display: block;
+          width: 100%;
+          border-top: 1px solid #d1d5db;
+          padding-top: 0.75rem;
+          margin: 0.75rem 0;
+        }
         .viewer-wrapper .bn-block-outer {
           padding-left: 0 !important;
         }

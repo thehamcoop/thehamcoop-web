@@ -33,17 +33,39 @@ export default function Editor({ onChange, initialContent }: EditorProps) {
   const editor = useCreateBlockNote({
     initialContent: initialContent ? JSON.parse(initialContent) : undefined,
     uploadFile,
+    placeholders: {
+      default: "명령어는 '/'를 입력하세요.",
+    },
   });
+
+  const handleChange = () => {
+    // --- 입력 시 구분선으로 변환
+    const block = editor.getTextCursorPosition().block;
+    if (
+      block.type === "paragraph" &&
+      block.content &&
+      Array.isArray(block.content) &&
+      block.content.length === 1 &&
+      block.content[0].type === "text" &&
+      block.content[0].text === "---"
+    ) {
+      editor.updateBlock(block, {
+        type: "paragraph",
+        content: [{ type: "text", text: "———", styles: {} }],
+        props: { ...block.props, textColor: "gray" },
+      } as Parameters<typeof editor.updateBlock>[1]);
+    }
+
+    const content = JSON.stringify(editor.document);
+    onChange?.(content);
+  };
 
   return (
     <div className="editor-wrapper">
       <BlockNoteView
         editor={editor}
         theme="light"
-        onChange={() => {
-          const content = JSON.stringify(editor.document);
-          onChange?.(content);
-        }}
+        onChange={handleChange}
       />
       <style jsx global>{`
         .editor-wrapper .bn-editor {
@@ -58,6 +80,20 @@ export default function Editor({ onChange, initialContent }: EditorProps) {
         }
         .editor-wrapper .bn-block-group {
           margin: 0 auto;
+        }
+        .editor-wrapper [data-text-color="gray"] .bn-inline-content {
+          font-size: 0;
+          line-height: 0;
+          display: block;
+          width: 100%;
+          border-top: 1px solid #d1d5db;
+          padding-top: 0.75rem;
+          margin: 0.75rem 0;
+        }
+        .editor-wrapper .bn-block-outer.bn-block-outer-selected > .bn-block {
+          outline: none !important;
+          box-shadow: none !important;
+          background: transparent !important;
         }
       `}</style>
     </div>
