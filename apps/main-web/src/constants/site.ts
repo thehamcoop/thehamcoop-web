@@ -30,7 +30,7 @@ export const PORTFOLIO_ITEMS = [
     slug: "fira",
     title: "창업캠프 및 메이커톤",
     subtitle: "전문가 멘토링 + 제작(PBL) 기반으로 '아이디어 구현/시제품 제작/발표·시상'까지 운영",
-    image: "/images/reasons/reason4.jpg",
+    image: "/images/reasons/reason4.png",
     bgColor: "#0d1b2a",
   },
   {

@@ -2,6 +2,7 @@
 
 import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
+import { locales } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
 import "@blocknote/mantine/style.css";
 import { supabase } from "@/lib/supabase";
@@ -33,8 +34,12 @@ export default function Editor({ onChange, initialContent }: EditorProps) {
   const editor = useCreateBlockNote({
     initialContent: initialContent ? JSON.parse(initialContent) : undefined,
     uploadFile,
-    placeholders: {
-      default: "명령어는 '/'를 입력하세요.",
+    dictionary: {
+      ...locales.ko,
+      placeholders: {
+        ...locales.ko.placeholders,
+        default: "명령어는 '/'를 입력하세요.",
+      },
     },
   });
 

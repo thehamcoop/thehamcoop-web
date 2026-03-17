@@ -48,11 +48,7 @@ export default function AdminWritePage() {
     setSaving(false);
 
     if (result.success) {
-      setMessage({ type: "success", text: "글이 성공적으로 저장되었습니다." });
-      setTitle("");
-      setCategorySlug("education");
-      setIsPinned(false);
-      setContent("");
+      router.push("/");
     } else {
       setMessage({
         type: "error",

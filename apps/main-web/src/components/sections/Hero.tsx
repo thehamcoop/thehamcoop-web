@@ -63,7 +63,7 @@ export default function Hero() {
             href="/consultation"
             className="rounded-full bg-linear-to-r from-accent-purple to-accent-blue px-6 py-3 text-sm font-semibold text-white transition-shadow hover:shadow-lg hover:shadow-accent-purple/25 md:px-8 md:py-4 md:text-base"
           >
-            상담하기
+            문의하기
           </a>
         </motion.div>
       </div>
