@@ -163,8 +163,7 @@ export default function BlogHome() {
         {/* Post Grid - 3 columns */}
         {!loading && posts.length > 0 && (
           <div
-            className="grid gap-8"
-            style={{ gridTemplateColumns: "repeat(3, 1fr)" }}
+            className="grid grid-cols-1 gap-8 md:grid-cols-3"
           >
             {posts.map((post, index) => (
               <motion.div
