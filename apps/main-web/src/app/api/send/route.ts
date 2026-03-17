@@ -1,7 +1,13 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { createClient } from "@supabase/supabase-js";
 
 export const dynamic = "force-dynamic";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 export async function POST(request: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY!);
@@ -19,6 +25,7 @@ export async function POST(request: Request) {
     const selectedChannels = JSON.parse(
       formData.get("selectedChannels") as string,
     ) as string[];
+    const otherChannel = (formData.get("otherChannel") as string) || "";
 
     const fileEntries = formData.getAll("files") as File[];
     const attachments = await Promise.all(
@@ -28,6 +35,25 @@ export async function POST(request: Request) {
       })),
     );
 
+    // Supabase DB에 상담 신청 저장
+    const { error: dbError } = await supabase.from("consultations").insert({
+      name,
+      phone,
+      email,
+      company,
+      message,
+      budget,
+      task_type: taskType,
+      detail,
+      visit_channels: selectedChannels,
+      other_channel: otherChannel,
+    });
+
+    if (dbError) {
+      console.error("DB 저장 실패:", dbError.message);
+    }
+
+    // 이메일 전송
     const htmlContent = `
       <h2>새로운 상담 신청이 접수되었습니다.</h2>
       <table style="border-collapse: collapse; width: 100%; max-width: 600px;">

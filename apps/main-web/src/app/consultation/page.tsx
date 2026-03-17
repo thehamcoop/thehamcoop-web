@@ -97,6 +97,7 @@ export default function ConsultationPage() {
       formData.append("taskType", taskType);
       formData.append("detail", detail);
       formData.append("selectedChannels", JSON.stringify(selectedChannels));
+      formData.append("otherChannel", otherChannel);
       files.forEach((file) => formData.append("files", file));
 
       const res = await fetch("/api/send", {
