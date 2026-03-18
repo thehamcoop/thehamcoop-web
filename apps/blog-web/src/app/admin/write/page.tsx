@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import DynamicEditor from "@/components/DynamicEditor";
+import SnsPublishModal from "@/components/SnsPublishModal";
 import { savePost } from "./actions";
 
 const CATEGORIES = [
@@ -22,6 +23,10 @@ export default function AdminWritePage() {
   const [message, setMessage] = useState<{
     type: "success" | "error";
     text: string;
+  } | null>(null);
+  const [snsModal, setSnsModal] = useState<{
+    postId: string;
+    thumbnailUrl: string;
   } | null>(null);
 
   const handleSubmit = async () => {
@@ -47,8 +52,11 @@ export default function AdminWritePage() {
 
     setSaving(false);
 
-    if (result.success) {
-      router.push("/");
+    if (result.success && result.post) {
+      setSnsModal({
+        postId: result.post.id,
+        thumbnailUrl: result.post.thumbnail_url || "",
+      });
     } else {
       setMessage({
         type: "error",
@@ -277,6 +285,20 @@ export default function AdminWritePage() {
           </div>
         </div>
       </div>
+
+      {/* SNS 발행 모달 */}
+      {snsModal && (
+        <SnsPublishModal
+          postId={snsModal.postId}
+          title={title}
+          content={content}
+          thumbnailUrl={snsModal.thumbnailUrl}
+          onClose={() => {
+            setSnsModal(null);
+            router.push("/");
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import DynamicEditor from "@/components/DynamicEditor";
+import SnsPublishModal from "@/components/SnsPublishModal";
 import { updatePost } from "@/app/admin/write/actions";
 import { supabase } from "@/lib/supabase";
 import type { Post } from "@/types/database.types";
@@ -27,6 +28,10 @@ export default function AdminEditPage() {
   const [message, setMessage] = useState<{
     type: "success" | "error";
     text: string;
+  } | null>(null);
+  const [snsModal, setSnsModal] = useState<{
+    postId: string;
+    thumbnailUrl: string;
   } | null>(null);
 
   useEffect(() => {
@@ -166,6 +171,33 @@ export default function AdminEditPage() {
                 저장 중...
               </span>
             )}
+            <button
+              onClick={() =>
+                setSnsModal({
+                  postId: id as string,
+                  thumbnailUrl: "",
+                })
+              }
+              style={{
+                padding: "0.625rem 1.25rem",
+                fontSize: "0.875rem",
+                fontWeight: 500,
+                color: "#4b5563",
+                backgroundColor: "#fff",
+                border: "1px solid #e5e7eb",
+                borderRadius: "0.625rem",
+                cursor: "pointer",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "#f9fafb";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "#fff";
+              }}
+            >
+              SNS 발행
+            </button>
             <button
               onClick={handleSubmit}
               disabled={saving}
@@ -323,6 +355,17 @@ export default function AdminEditPage() {
           </div>
         </div>
       </div>
+
+      {/* SNS 발행 모달 */}
+      {snsModal && (
+        <SnsPublishModal
+          postId={snsModal.postId}
+          title={title}
+          content={content}
+          thumbnailUrl={snsModal.thumbnailUrl}
+          onClose={() => setSnsModal(null)}
+        />
+      )}
     </div>
   );
 }
