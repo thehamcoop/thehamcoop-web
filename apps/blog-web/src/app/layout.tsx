@@ -55,6 +55,24 @@ export default function RootLayout({
           crossOrigin="anonymous"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: SITE.name,
+              url: SITE.url,
+              description: SITE.description,
+              publisher: {
+                "@type": "Organization",
+                name: "더함협동조합",
+                url: SITE.url,
+              },
+              inLanguage: "ko",
+            }),
+          }}
+        />
       </head>
       <body className="flex min-h-screen flex-col">
         <AdminProvider>
