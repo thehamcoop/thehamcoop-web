@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import DynamicEditor from "@/components/DynamicEditor";
-import SnsPublishModal from "@/components/SnsPublishModal";
 import { savePost } from "./actions";
 
 const CATEGORIES = [
@@ -24,11 +23,6 @@ export default function AdminWritePage() {
     type: "success" | "error";
     text: string;
   } | null>(null);
-  const [snsModal, setSnsModal] = useState<{
-    postId: string;
-    thumbnailUrl: string;
-  } | null>(null);
-
   const handleSubmit = async () => {
     if (!title.trim()) {
       setMessage({ type: "error", text: "제목을 입력해주세요." });
@@ -53,10 +47,8 @@ export default function AdminWritePage() {
     setSaving(false);
 
     if (result.success && result.post) {
-      setSnsModal({
-        postId: result.post.id,
-        thumbnailUrl: result.post.thumbnail_url || "",
-      });
+      setMessage({ type: "success", text: "글이 게시되었습니다." });
+      setTimeout(() => router.push("/"), 1000);
     } else {
       setMessage({
         type: "error",
@@ -286,19 +278,6 @@ export default function AdminWritePage() {
         </div>
       </div>
 
-      {/* SNS 발행 모달 */}
-      {snsModal && (
-        <SnsPublishModal
-          postId={snsModal.postId}
-          title={title}
-          content={content}
-          thumbnailUrl={snsModal.thumbnailUrl}
-          onClose={() => {
-            setSnsModal(null);
-            router.push("/");
-          }}
-        />
-      )}
     </div>
   );
 }
