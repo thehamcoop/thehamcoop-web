@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "DemoDev Clone",
-  description: "DemoDev Clone - Creative Development Agency",
+  title: "더함협동조합",
+  description: "더함협동조합 - 비즈니스 성과를 만드는 개발 파트너",
 };
 
 export default function RootLayout({

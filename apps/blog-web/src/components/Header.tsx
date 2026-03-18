@@ -32,7 +32,7 @@ export default function Header() {
               className="h-8 w-8"
             />
             <div className="flex flex-col items-center leading-tight">
-              <span style={{ color: "#164761" }}>더함 협동조합</span>
+              <span style={{ color: "#164761" }}>더함협동조합</span>
               <span
                 className="text-[0.60rem] font-semibold tracking-wide"
                 style={{ color: "#164761" }}

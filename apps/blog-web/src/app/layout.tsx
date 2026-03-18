@@ -3,10 +3,42 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { AdminProvider } from "@/context/AdminContext";
+import { SITE } from "@/constants/site";
 
 export const metadata: Metadata = {
-  title: "더함 협동조합 블로그",
-  description: "더함 협동조합의 소식과 이야기를 전합니다.",
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: SITE.title,
+    template: `%s | ${SITE.name}`,
+  },
+  description: SITE.description,
+  openGraph: {
+    type: "website",
+    locale: SITE.locale,
+    url: SITE.url,
+    siteName: SITE.name,
+    title: SITE.title,
+    description: SITE.description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE.title,
+    description: SITE.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: SITE.url,
+  },
 };
 
 export default function RootLayout({

@@ -1,7 +1,9 @@
 export const SITE = {
-  name: "더함 협동조합 블로그",
-  title: "더함 협동조합 블로그",
-  description: "더함 협동조합의 소식과 이야기를 전합니다.",
+  name: "더함협동조합 블로그",
+  title: "더함협동조합 블로그",
+  description: "더함협동조합의 소식과 이야기를 전합니다.",
+  url: "https://thehamcoop-blog.vercel.app",
+  locale: "ko_KR",
 } as const;
 
 export const FOOTER = {
