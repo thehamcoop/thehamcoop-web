@@ -71,7 +71,7 @@ function LogoColumn({
             key={i}
             className={`flex h-30 items-center px-6 ${align === "right" ? "justify-end" : ""}`}
           >
-            <img src={src} alt="" className="h-14 brightness-0 invert opacity-50" />
+            <img src={src} alt="" className="h-10 md:h-18 brightness-0 invert opacity-50" />
           </div>
         ))}
       </motion.div>
@@ -83,7 +83,7 @@ export default function Partners() {
   return (
     <section className="relative flex h-screen items-center overflow-hidden bg-black">
       {/* 왼쪽 로고 열 */}
-      <div className="absolute top-0 bottom-0 left-4 w-1/4">
+      <div className="absolute top-0 bottom-0 left-16 w-1/4">
         <LogoColumn partners={LEFT_PARTNERS} direction="down" />
       </div>
 
@@ -102,7 +102,7 @@ export default function Partners() {
       </div>
 
       {/* 오른쪽 로고 열 */}
-      <div className="absolute top-0 right-4 bottom-0 w-1/4">
+      <div className="absolute top-0 right-16 bottom-0 w-1/4">
         <LogoColumn partners={RIGHT_PARTNERS} direction="up" align="right" />
       </div>
     </section>

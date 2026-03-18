@@ -407,7 +407,7 @@ export default function ConsultationPage() {
                     value={form.phone}
                     onChange={handleChange}
                     className={`w-full rounded-lg border ${submitted && !form.phone.trim() ? errorBorder : normalBorder} px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]`}
-                    placeholder="연락처를 입력해주세요."
+                    placeholder="ex) 010-1234-5678"
                   />
                   {submitted && !form.phone.trim() && (
                     <p className="mt-1 text-xs text-red-500">
@@ -603,11 +603,13 @@ export default function ConsultationPage() {
                     <input
                       type="file"
                       multiple
+                      accept=".pdf,.hwp,.hwpx,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.mp4"
                       className="hidden"
                       onChange={(e) => {
                         if (e.target.files) {
+                          const allowedExts = [".pdf",".hwp",".hwpx",".doc",".docx",".xls",".xlsx",".ppt",".pptx",".txt",".mp4"];
                           const newFiles = Array.from(e.target.files).filter(
-                            (f) => f.size <= 30 * 1024 * 1024,
+                            (f) => f.size <= 30 * 1024 * 1024 && allowedExts.some((ext) => f.name.toLowerCase().endsWith(ext)),
                           );
                           setFiles((prev) =>
                             [...prev, ...newFiles].slice(0, 100),

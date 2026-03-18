@@ -107,7 +107,7 @@ export async function POST(request: Request) {
 
     const { data, error } = await resend.emails.send({
       from: "상담 신청 <onboarding@resend.dev>",
-      to: "simon010809@gmail.com",
+      to: "thehamcoop@gmail.com",
       subject: `[상담 신청] ${name}님의 문의`,
       html: htmlContent,
       attachments: attachments.length > 0 ? attachments : undefined,
