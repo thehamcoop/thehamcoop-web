@@ -2,7 +2,7 @@ export const SITE = {
   name: "DemoDev",
   title: "DemoDev - Creative Development Agency",
   description: "비즈니스 성과를 만드는 개발 파트너",
-  url: "https://www.demodev.io",
+  url: "https://thehamcoop.vercel.app",
 } as const;
 
 export const NAV_LINKS = [

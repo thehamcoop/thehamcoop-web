@@ -28,7 +28,6 @@ export default function AdminEditPage() {
     type: "success" | "error";
     text: string;
   } | null>(null);
-
   useEffect(() => {
     async function fetchPost() {
       const { data } = await supabase
@@ -323,6 +322,7 @@ export default function AdminEditPage() {
           </div>
         </div>
       </div>
+
     </div>
   );
 }

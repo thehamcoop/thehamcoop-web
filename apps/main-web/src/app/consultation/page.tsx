@@ -29,6 +29,7 @@ export default function ConsultationPage() {
   const [otherChannel, setOtherChannel] = useState("");
   const [budget, setBudget] = useState("");
   const [taskType, setTaskType] = useState("");
+  const [otherTaskType, setOtherTaskType] = useState("");
   const [detail, setDetail] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
@@ -72,10 +73,10 @@ export default function ConsultationPage() {
       [!form.phone.trim(), "연락처를 입력해주세요."],
       [!form.company.trim(), "기관/직함을 입력해주세요."],
       [!form.email.trim(), "이메일을 입력해주세요."],
-      [!form.message.trim(), "프로젝트 한 줄 설명을 입력해주세요."],
+      [!form.message.trim(), "문의 한 줄 설명을 입력해주세요."],
       [!budget.trim(), "희망 견적을 입력해주세요."],
-      [!taskType, "의뢰 업무를 선택해주세요."],
-      [!detail.trim(), "의뢰 내용을 입력해주세요."],
+      [!taskType, "문의 분야를 선택해주세요."],
+      [!detail.trim(), "문의 내용을 입력해주세요."],
       [!agreed, "개인정보 수집에 동의해주세요."],
     ];
 
@@ -98,6 +99,7 @@ export default function ConsultationPage() {
       formData.append("detail", detail);
       formData.append("selectedChannels", JSON.stringify(selectedChannels));
       formData.append("otherChannel", otherChannel);
+      formData.append("otherTaskType", otherTaskType);
       files.forEach((file) => formData.append("files", file));
 
       const res = await fetch("/api/send", {
@@ -139,8 +141,13 @@ export default function ConsultationPage() {
             className="h-28 w-28"
           />
           <div className="flex flex-col items-center leading-tight">
-            <span className="text-5xl font-bold" style={{ color: "#1e4f66" }}>더함 협동조합</span>
-            <span className="text-base font-semibold tracking-widest" style={{ color: "#1e4f66" }}>
+            <span className="text-5xl font-bold" style={{ color: "#1e4f66" }}>
+              더함 협동조합
+            </span>
+            <span
+              className="text-base font-semibold tracking-widest"
+              style={{ color: "#1e4f66" }}
+            >
               THEHAM COOPERATIVE
             </span>
           </div>
@@ -167,8 +174,13 @@ export default function ConsultationPage() {
             className="h-16 w-16"
           />
           <div className="flex flex-col items-center leading-tight">
-            <span className="text-2xl font-bold" style={{ color: "#1e4f66" }}>더함 협동조합</span>
-            <span className="text-xs font-semibold tracking-widest" style={{ color: "#1e4f66" }}>
+            <span className="text-2xl font-bold" style={{ color: "#1e4f66" }}>
+              더함 협동조합
+            </span>
+            <span
+              className="text-xs font-semibold tracking-widest"
+              style={{ color: "#1e4f66" }}
+            >
               THEHAM COOPERATIVE
             </span>
           </div>
@@ -181,8 +193,13 @@ export default function ConsultationPage() {
           transition={{ duration: 0.4, delay: 0.9 }}
           className="flex flex-col items-center py-4"
         >
-          <span className="text-lg font-bold" style={{ color: "#1e4f66" }}>더함 협동조합</span>
-          <span className="text-[0.6rem] font-semibold tracking-widest" style={{ color: "#1e4f66" }}>
+          <span className="text-lg font-bold" style={{ color: "#1e4f66" }}>
+            더함 협동조합
+          </span>
+          <span
+            className="text-[0.6rem] font-semibold tracking-widest"
+            style={{ color: "#1e4f66" }}
+          >
             THEHAM COOPERATIVE
           </span>
         </motion.div>
@@ -253,7 +270,7 @@ export default function ConsultationPage() {
                   transition={{ duration: 0.5, delay: 0.3 }}
                   className="text-2xl font-bold text-gray-900"
                 >
-                  상담 신청이 완료되었습니다
+                  문의가 완료되었습니다
                 </motion.h2>
 
                 <motion.p
@@ -299,9 +316,7 @@ export default function ConsultationPage() {
                 </Link>
 
                 <div>
-                  <h1 className="text-3xl font-bold text-gray-900">
-                    상담 신청
-                  </h1>
+                  <h1 className="text-3xl font-bold text-gray-900">문의하기</h1>
                   <p className="mt-2 text-sm text-gray-500">
                     문의사항을 아래 형식에 맞춰 남겨주시길 바랍니다.
                   </p>
@@ -444,7 +459,7 @@ export default function ConsultationPage() {
                 {/* Message */}
                 <div>
                   <label className="mb-1 block text-sm font-medium text-gray-700">
-                    프로젝트 한 줄 설명 <span className="text-red-500">*</span>
+                    문의 한 줄 설명 <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -452,11 +467,11 @@ export default function ConsultationPage() {
                     value={form.message}
                     onChange={handleChange}
                     className={`w-full rounded-lg border ${submitted && !form.message.trim() ? errorBorder : normalBorder} px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]`}
-                    placeholder="프로젝트 이름을 입력해주세요."
+                    placeholder="문의사항을 한 줄로 설명해주세요."
                   />
                   {submitted && !form.message.trim() && (
                     <p className="mt-1 text-xs text-red-500">
-                      프로젝트 한 줄 설명을 입력해주세요.
+                      문의 한 줄 설명을 입력해주세요.
                     </p>
                   )}
                 </div>
@@ -490,10 +505,10 @@ export default function ConsultationPage() {
                 {/* Task Type */}
                 <div>
                   <label className="mb-2 block text-sm font-medium text-gray-700">
-                    의뢰 업무 <span className="text-red-500">*</span>
+                    문의 분야 <span className="text-red-500">*</span>
                   </label>
                   <div className="flex flex-wrap gap-2">
-                    {["운영 문의", "교육 문의", "상담"].map((type) => (
+                    {["운영 문의", "교육 문의", "상담", "그 외"].map((type) => (
                       <button
                         key={type}
                         type="button"
@@ -512,15 +527,32 @@ export default function ConsultationPage() {
                   </div>
                   {submitted && !taskType && (
                     <p className="mt-1 text-xs text-red-500">
-                      의뢰 업무를 선택해주세요.
+                      문의 분야를 선택해주세요.
                     </p>
+                  )}
+                  {taskType === "그 외" && (
+                    <div className="mt-3">
+                      <label className="mb-1 block text-sm font-medium text-gray-700">
+                        그 외 문의분야{" "}
+                        <span className="text-gray-400">
+                          (구체적으로 작성 부탁드립니다.)
+                        </span>
+                      </label>
+                      <input
+                        type="text"
+                        value={otherTaskType}
+                        onChange={(e) => setOtherTaskType(e.target.value)}
+                        className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]"
+                        placeholder="문의 분야를 입력해주세요."
+                      />
+                    </div>
                   )}
                 </div>
 
                 {/* Request Detail */}
                 <div>
                   <label className="mb-1 block text-sm font-medium text-gray-700">
-                    의뢰 내용 <span className="text-red-500">*</span>
+                    문의 내용 <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     name="detail"
@@ -528,11 +560,11 @@ export default function ConsultationPage() {
                     value={detail}
                     onChange={(e) => setDetail(e.target.value)}
                     className={`w-full resize-none rounded-lg border ${submitted && !detail.trim() ? errorBorder : normalBorder} px-4 py-3 text-sm text-gray-900 outline-none focus:border-[#2DB7C1] focus:ring-1 focus:ring-[#2DB7C1]`}
-                    placeholder="의뢰 내용을 입력해주세요."
+                    placeholder="문의 내용을 입력해주세요."
                   />
                   {submitted && !detail.trim() && (
                     <p className="mt-1 text-xs text-red-500">
-                      의뢰 내용을 입력해주세요.
+                      문의 내용을 입력해주세요.
                     </p>
                   )}
                 </div>
@@ -540,11 +572,9 @@ export default function ConsultationPage() {
                 {/* File Upload */}
                 <div>
                   <label className="mb-1 block text-sm font-medium text-gray-700">
-                    의뢰 파일
+                    첨부 파일 ({files.length}/100)
                   </label>
-                  <p className="mb-2 text-sm text-gray-400">
-                    ({files.length}/30) 최대 30mb 파일만 업로드 할 수 있어요.
-                  </p>
+
                   {files.length > 0 && (
                     <div className="mb-2 flex flex-col gap-1">
                       {files.map((file, i) => (
@@ -568,7 +598,7 @@ export default function ConsultationPage() {
                       ))}
                     </div>
                   )}
-                  <label className="inline-flex cursor-pointer items-center gap-1 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-600 transition-colors hover:border-[#2DB7C1] hover:text-[#2DB7C1]">
+                  <label className="flex w-full cursor-pointer items-center justify-center gap-1 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-600 transition-colors hover:border-[#2DB7C1] hover:text-[#2DB7C1]">
                     + 파일 업로드
                     <input
                       type="file"
@@ -580,13 +610,19 @@ export default function ConsultationPage() {
                             (f) => f.size <= 30 * 1024 * 1024,
                           );
                           setFiles((prev) =>
-                            [...prev, ...newFiles].slice(0, 30),
+                            [...prev, ...newFiles].slice(0, 100),
                           );
                         }
                         e.target.value = "";
                       }}
                     />
                   </label>
+                  <p className="mt-2 text-xs text-gray-400">
+                    *총 100MB, 10개까지 업로드 할 수 있어요.
+                  </p>
+                  <p className="text-xs text-gray-400">
+                    *형식: PDF, 한글, 워드, 액셀, 피피티. 텍스트 파일 지원
+                  </p>
                 </div>
 
                 {/* Privacy Agreement */}
@@ -657,7 +693,7 @@ export default function ConsultationPage() {
               <p>
                 <strong className="text-gray-900">1. 수집 항목</strong>
                 <br />
-                성함, 연락처, 이메일, 기관/직함, 프로젝트 정보, 의뢰 내용
+                성함, 연락처, 이메일, 기관/직함, 프로젝트 정보, 문의 내용
               </p>
               <p>
                 <strong className="text-gray-900">2. 수집 목적</strong>

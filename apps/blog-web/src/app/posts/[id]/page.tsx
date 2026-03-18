@@ -1,288 +1,103 @@
-"use client";
-
-import { useParams, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { notFound } from "next/navigation";
+import { createClient } from "@supabase/supabase-js";
+import type { Metadata } from "next";
 import type { Post } from "@/types/database.types";
-import DynamicViewer from "@/components/DynamicViewer";
-import { useAdmin } from "@/context/AdminContext";
-import { deletePost } from "@/app/admin/write/actions";
+import { SITE } from "@/constants/site";
+import { blocksToPlainText } from "@/lib/contentUtils";
+import PostDetailClient from "./PostDetailClient";
+import JsonLd from "@/components/JsonLd";
 
-const CATEGORY_MAP: Record<string, string> = {
-  education: "교육",
-  manufacturing: "시제품 제작 & 제조",
-  marketing: "마케팅 & 유통",
-  rnd: "R&D",
-};
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
-export default function PostDetail() {
-  const { id } = useParams();
-  const router = useRouter();
-  const { isAdmin } = useAdmin();
-  const [post, setPost] = useState<Post | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [deleting, setDeleting] = useState(false);
+async function getPost(id: string): Promise<Post | null> {
+  const { data } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("id", id)
+    .single();
 
-  useEffect(() => {
-    async function fetchPost() {
-      const { data } = await supabase
-        .from("posts")
-        .select("*")
-        .eq("id", id as string)
-        .single();
+  return data as Post | null;
+}
 
-      setPost(data as Post | null);
-      setLoading(false);
-    }
-
-    if (id) fetchPost();
-  }, [id]);
-
-  const handleDelete = async () => {
-    if (!confirm("이 게시글을 삭제하시겠습니까?")) return;
-
-    setDeleting(true);
-    const result = await deletePost(id as string);
-
-    if (!result.success) {
-      alert("삭제에 실패했습니다.");
-      setDeleting(false);
-    } else {
-      router.push("/");
-    }
-  };
-
-  const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString("ko-KR", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
-
-  if (loading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          minHeight: "60vh",
-        }}
-      >
-        <p style={{ fontSize: "0.875rem", color: "#9ca3af" }}>로딩 중...</p>
-      </div>
-    );
+function getDescription(content: string): string {
+  try {
+    const blocks = JSON.parse(content);
+    const text = blocksToPlainText(blocks);
+    return text.slice(0, 160).trim() || SITE.description;
+  } catch {
+    return SITE.description;
   }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const post = await getPost(id);
 
   if (!post) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          minHeight: "60vh",
-        }}
-      >
-        <div style={{ textAlign: "center" }}>
-          <h1
-            style={{ fontSize: "1.5rem", fontWeight: 700, color: "#111827" }}
-          >
-            포스트를 찾을 수 없습니다.
-          </h1>
-          <Link
-            href="/"
-            style={{
-              display: "inline-block",
-              marginTop: "1rem",
-              fontSize: "0.875rem",
-              color: "#2DB7C1",
-            }}
-          >
-            ← 블로그로 돌아가기
-          </Link>
-        </div>
-      </div>
-    );
+    return { title: "포스트를 찾을 수 없습니다" };
   }
 
+  const description = getDescription(post.content);
+  const url = `${SITE.url}/posts/${post.id}`;
+
+  return {
+    title: post.title,
+    description,
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description,
+      url,
+      siteName: SITE.name,
+      publishedTime: post.created_at,
+      modifiedTime: post.updated_at,
+      locale: SITE.locale,
+      ...(post.thumbnail_url && {
+        images: [
+          {
+            url: post.thumbnail_url,
+            width: 1200,
+            height: 630,
+            alt: post.title,
+          },
+        ],
+      }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+      ...(post.thumbnail_url && { images: [post.thumbnail_url] }),
+    },
+    alternates: {
+      canonical: url,
+    },
+  };
+}
+
+export default async function PostPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const post = await getPost(id);
+
+  if (!post) notFound();
+
+  const description = getDescription(post.content);
+
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#ffffff",
-      }}
-    >
-      {/* ── 상단 헤더 영역 ── */}
-      <div
-        style={{
-          backgroundColor: "#1a1a3e",
-          padding: "3rem 1.5rem 3.5rem",
-        }}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          style={{ maxWidth: "48rem", margin: "0 auto", padding: "0 1.5rem" }}
-        >
-          <Link
-            href="/"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.375rem",
-              fontSize: "0.875rem",
-              color: "rgba(255,255,255,0.6)",
-              textDecoration: "none",
-            }}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M19 12H5" />
-              <path d="m12 19-7-7 7-7" />
-            </svg>
-            블로그로 돌아가기
-          </Link>
-
-          <div style={{ marginTop: "1.5rem" }}>
-            <span
-              style={{
-                display: "inline-block",
-                padding: "0.25rem 0.875rem",
-                fontSize: "0.75rem",
-                fontWeight: 600,
-                color: "#2DB7C1",
-                backgroundColor: "rgba(45,183,193,0.15)",
-                borderRadius: "9999px",
-              }}
-            >
-              {CATEGORY_MAP[post.category_slug] || post.category_slug}
-            </span>
-            <h1
-              style={{
-                marginTop: "1rem",
-                fontSize: "2.25rem",
-                fontWeight: 800,
-                color: "#ffffff",
-                lineHeight: 1.25,
-              }}
-            >
-              {post.title}
-            </h1>
-            <div
-              style={{
-                marginTop: "1rem",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <span
-                style={{
-                  fontSize: "0.875rem",
-                  color: "rgba(255,255,255,0.5)",
-                }}
-              >
-                {formatDate(post.created_at)}
-              </span>
-              {isAdmin && <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <button
-                onClick={handleDelete}
-                disabled={deleting}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.375rem",
-                  padding: "0.375rem 1rem",
-                  fontSize: "0.8125rem",
-                  fontWeight: 500,
-                  color: "rgba(255,150,150,0.9)",
-                  border: "1px solid rgba(255,150,150,0.35)",
-                  borderRadius: "0.5rem",
-                  background: "none",
-                  cursor: deleting ? "not-allowed" : "pointer",
-                  opacity: deleting ? 0.5 : 1,
-                  transition: "all 0.2s",
-                }}
-              >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M3 6h18" />
-                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                </svg>
-                {deleting ? "삭제 중..." : "삭제"}
-              </button>
-              <Link
-                href={`/admin/edit/${post.id}`}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.375rem",
-                  padding: "0.375rem 1rem",
-                  fontSize: "0.8125rem",
-                  fontWeight: 500,
-                  color: "rgba(255,255,255,0.7)",
-                  border: "1px solid rgba(255,255,255,0.25)",
-                  borderRadius: "0.5rem",
-                  textDecoration: "none",
-                  transition: "all 0.2s",
-                }}
-              >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
-                  <path d="m15 5 4 4" />
-                </svg>
-                수정
-              </Link>
-              </div>}
-            </div>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* ── 본문 ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.15 }}
-        style={{
-          maxWidth: "48rem",
-          margin: "0 auto",
-          padding: "2.5rem 1.5rem 4rem",
-        }}
-      >
-        <DynamicViewer content={post.content} />
-      </motion.div>
-    </div>
+    <>
+      <JsonLd post={post} description={description} />
+      <PostDetailClient post={post} />
+    </>
   );
 }

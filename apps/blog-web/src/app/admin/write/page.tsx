@@ -23,7 +23,6 @@ export default function AdminWritePage() {
     type: "success" | "error";
     text: string;
   } | null>(null);
-
   const handleSubmit = async () => {
     if (!title.trim()) {
       setMessage({ type: "error", text: "제목을 입력해주세요." });
@@ -47,8 +46,9 @@ export default function AdminWritePage() {
 
     setSaving(false);
 
-    if (result.success) {
-      router.push("/");
+    if (result.success && result.post) {
+      setMessage({ type: "success", text: "글이 게시되었습니다." });
+      setTimeout(() => router.push("/"), 1000);
     } else {
       setMessage({
         type: "error",
@@ -277,6 +277,7 @@ export default function AdminWritePage() {
           </div>
         </div>
       </div>
+
     </div>
   );
 }

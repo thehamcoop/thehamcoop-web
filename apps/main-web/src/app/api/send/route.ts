@@ -28,6 +28,7 @@ export async function POST(request: Request) {
       formData.get("selectedChannels") as string,
     ) as string[];
     const otherChannel = (formData.get("otherChannel") as string) || "";
+    const otherTaskType = (formData.get("otherTaskType") as string) || "";
 
     const fileEntries = formData.getAll("files") as File[];
     const attachments = await Promise.all(
@@ -50,6 +51,7 @@ export async function POST(request: Request) {
       detail,
       visit_channels: selectedChannels,
       other_channel: otherChannel,
+      other_task_type: otherTaskType,
     });
 
     if (dbError) {
@@ -92,6 +94,10 @@ export async function POST(request: Request) {
           <td style="padding: 8px 12px; border: 1px solid #ddd; background: #f9f9f9; font-weight: bold;">의뢰 업무</td>
           <td style="padding: 8px 12px; border: 1px solid #ddd;">${taskType}</td>
         </tr>
+        ${otherTaskType ? `<tr>
+          <td style="padding: 8px 12px; border: 1px solid #ddd; background: #f9f9f9; font-weight: bold;">그 외 문의분야</td>
+          <td style="padding: 8px 12px; border: 1px solid #ddd;">${otherTaskType}</td>
+        </tr>` : ""}
         <tr>
           <td style="padding: 8px 12px; border: 1px solid #ddd; background: #f9f9f9; font-weight: bold;">의뢰 내용</td>
           <td style="padding: 8px 12px; border: 1px solid #ddd; white-space: pre-wrap;">${detail}</td>
