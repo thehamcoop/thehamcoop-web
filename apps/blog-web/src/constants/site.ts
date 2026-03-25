@@ -9,5 +9,5 @@ export const SITE = {
 export const FOOTER = {
   address: "충청남도 천안시 서북구 충무로 143-10(쌍용동)",
   phone: "070-7954-6965",
-  email: "contact@thehamcoop.kr",
+  email: "knh@thehamcoop.com",
 } as const;
