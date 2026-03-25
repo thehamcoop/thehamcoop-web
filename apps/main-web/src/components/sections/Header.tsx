@@ -38,7 +38,7 @@ export default function Header() {
               rel="noopener noreferrer"
               className="text-sm font-semibold text-gray-600 transition-colors hover:text-gray-900"
             >
-              블로그
+              사업분야 소개
             </a>
           </nav>
         </div>
@@ -99,7 +99,7 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
                 className="text-gray-600 transition-colors hover:text-gray-900"
               >
-                블로그
+                사업분야 소개
               </a>
               <a
                 href="/files/theham-profile.pdf"

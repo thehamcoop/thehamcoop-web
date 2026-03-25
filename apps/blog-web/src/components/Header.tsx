@@ -48,7 +48,7 @@ export default function Header() {
               href="/"
               className="text-sm font-semibold text-gray-600 transition-colors hover:text-gray-900"
             >
-              블로그
+              사업분야 소개
             </Link>
           </nav>
         </div>
@@ -149,7 +149,7 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
                 className="text-gray-600 transition-colors hover:text-gray-900"
               >
-                블로그
+                사업분야 소개
               </Link>
               <a
                 href={`${MAIN_URL}/consultation`}

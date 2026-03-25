@@ -2,7 +2,7 @@ export const SITE = {
   name: "DemoDev",
   title: "DemoDev - Creative Development Agency",
   description: "비즈니스 성과를 만드는 개발 파트너",
-  url: "https://thehamcoop.vercel.app",
+  url: "https://thehamcoop.com",
 } as const;
 
 export const NAV_LINKS = [
@@ -123,6 +123,6 @@ export const FOOTER = {
   companyName: "데모데브",
   address: "서울특별시 강남구",
   phone: "02-1234-5678",
-  email: "contact@demodev.io",
+  email: "contact@thehamcoop.com",
   copyright: "2025 DemoDev. All rights reserved.",
 } as const;

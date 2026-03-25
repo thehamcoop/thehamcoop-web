@@ -67,6 +67,11 @@ export default function ConsultationPage() {
     e.preventDefault();
     setSubmitted(true);
 
+    // 동의 안 했으면 자동 동의
+    if (!agreed) {
+      setAgreed(true);
+    }
+
     const validations: [boolean, string][] = [
       [selectedChannels.length === 0, "방문 경로를 선택해주세요."],
       [!form.name.trim(), "성함을 입력해주세요."],
@@ -77,7 +82,6 @@ export default function ConsultationPage() {
       [!budget.trim(), "희망 견적을 입력해주세요."],
       [!taskType, "문의 분야를 선택해주세요."],
       [!detail.trim(), "문의 내용을 입력해주세요."],
-      [!agreed, "개인정보 수집에 동의해주세요."],
     ];
 
     const firstError = validations.find(([hasError]) => hasError);
@@ -86,39 +90,8 @@ export default function ConsultationPage() {
       return;
     }
 
-    setIsSubmitting(true);
-    try {
-      const formData = new FormData();
-      formData.append("name", form.name);
-      formData.append("phone", form.phone);
-      formData.append("company", form.company);
-      formData.append("email", form.email);
-      formData.append("message", form.message);
-      formData.append("budget", budget);
-      formData.append("taskType", taskType);
-      formData.append("detail", detail);
-      formData.append("selectedChannels", JSON.stringify(selectedChannels));
-      formData.append("otherChannel", otherChannel);
-      formData.append("otherTaskType", otherTaskType);
-      files.forEach((file) => formData.append("files", file));
-
-      const res = await fetch("/api/send", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const data = await res.json();
-        showToast(data.error || "이메일 전송에 실패했습니다.");
-        return;
-      }
-
-      setIsComplete(true);
-    } catch {
-      showToast("이메일 전송에 실패했습니다.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    // 현재 문의 기능 비활성 상태
+    showToast("현재 문의 기능은 비활성 상태입니다. 문의 오승민(tmdals128551@gmail.com)");
   }
 
   const errorBorder = "border-red-500";
@@ -603,11 +576,11 @@ export default function ConsultationPage() {
                     <input
                       type="file"
                       multiple
-                      accept=".pdf,.hwp,.hwpx,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.mp4"
+                      accept=".pdf,.hwp,.hwpx,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.mp4,.jpg,.jpeg,.png"
                       className="hidden"
                       onChange={(e) => {
                         if (e.target.files) {
-                          const allowedExts = [".pdf",".hwp",".hwpx",".doc",".docx",".xls",".xlsx",".ppt",".pptx",".txt",".mp4"];
+                          const allowedExts = [".pdf",".hwp",".hwpx",".doc",".docx",".xls",".xlsx",".ppt",".pptx",".txt",".mp4",".jpg",".jpeg",".png"];
                           const newFiles = Array.from(e.target.files).filter(
                             (f) => f.size <= 30 * 1024 * 1024 && allowedExts.some((ext) => f.name.toLowerCase().endsWith(ext)),
                           );
@@ -623,7 +596,7 @@ export default function ConsultationPage() {
                     *총 100MB, 10개까지 업로드 할 수 있어요.
                   </p>
                   <p className="text-xs text-gray-400">
-                    *형식: PDF, 한글, 워드, 액셀, 피피티. 텍스트 파일 지원
+                    *형식: PDF, 한글(.hwp/.hwpx), 워드(.doc/.docx), 엑셀(.xls/.xlsx), PPT(.ppt/.pptx), 텍스트(.txt), 동영상(.mp4), 이미지(.jpg/.png)
                   </p>
                 </div>
 
@@ -670,7 +643,7 @@ export default function ConsultationPage() {
                     background: "linear-gradient(to right, #2DB7C1, #1A8A91)",
                   }}
                 >
-                  {isSubmitting ? "전송 중..." : "제출하기"}
+                  {isSubmitting ? "전송 중..." : "동의하고 제출하기"}
                 </button>
               </motion.form>
             )}
