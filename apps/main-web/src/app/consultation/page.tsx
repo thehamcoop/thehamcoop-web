@@ -481,7 +481,7 @@ export default function ConsultationPage() {
                     문의 분야 <span className="text-red-500">*</span>
                   </label>
                   <div className="flex flex-wrap gap-2">
-                    {["운영 문의", "교육 문의", "상담", "그 외"].map((type) => (
+                    {["교육 문의", "행사 문의", "시제품 개발", "홍보·마케팅", "그 외"].map((type) => (
                       <button
                         key={type}
                         type="button"

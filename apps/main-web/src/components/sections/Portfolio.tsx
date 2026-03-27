@@ -37,12 +37,16 @@ function PortfolioCard({ item }: { item: (typeof PORTFOLIO_ITEMS)[number] }) {
 export default function Portfolio() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollDistance, setScrollDistance] = useState(0);
+  const [extraHeight, setExtraHeight] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     function calc() {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
+
+      const vh = window.innerHeight;
+      setExtraHeight(vh);
 
       if (mobile) {
         const cw = window.innerWidth;
@@ -66,9 +70,16 @@ export default function Portfolio() {
     offset: ["start start", "end end"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], [0, -scrollDistance]);
+  const totalScrollHeight = scrollDistance + extraHeight;
+  const stopRatio = totalScrollHeight > 0 ? scrollDistance / totalScrollHeight : 1;
 
-  const sectionHeight = `calc(100vh + ${scrollDistance}px)`;
+  const x = useTransform(
+    scrollYProgress,
+    [0, stopRatio, 1],
+    [0, -scrollDistance, -scrollDistance]
+  );
+
+  const sectionHeight = `calc(100vh + ${totalScrollHeight}px)`;
 
   if (isMobile) {
     return (
