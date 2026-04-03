@@ -12,16 +12,18 @@ export interface Post {
   content: string;
   author_name: string;
   thumbnail_url: string;
+  thumbnail_position: string;
   views: number;
   is_pinned: boolean;
+  sort_order: number;
   naver_blog_synced: boolean;
   instagram_synced: boolean;
   created_at: string;
   updated_at: string;
 }
 
-export type PostInsert = Omit<Post, "id" | "views" | "is_pinned" | "naver_blog_synced" | "instagram_synced" | "created_at" | "updated_at"> &
-  Partial<Pick<Post, "id" | "views" | "is_pinned" | "naver_blog_synced" | "instagram_synced" | "created_at" | "updated_at">>;
+export type PostInsert = Omit<Post, "id" | "views" | "is_pinned" | "sort_order" | "naver_blog_synced" | "instagram_synced" | "thumbnail_position" | "created_at" | "updated_at"> &
+  Partial<Pick<Post, "id" | "views" | "is_pinned" | "sort_order" | "naver_blog_synced" | "instagram_synced" | "thumbnail_position" | "created_at" | "updated_at">>;
 
 export type PostUpdate = Partial<Omit<Post, "id">>;
 

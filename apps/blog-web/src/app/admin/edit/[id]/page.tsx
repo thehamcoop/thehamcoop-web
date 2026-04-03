@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import DynamicEditor from "@/components/DynamicEditor";
+import ThumbnailPicker from "@/components/ThumbnailPicker";
 import { updatePost } from "@/app/admin/write/actions";
 import { supabase } from "@/lib/supabase";
 import type { Post } from "@/types/database.types";
@@ -22,6 +23,8 @@ export default function AdminEditPage() {
   const [isPinned, setIsPinned] = useState(false);
   const [content, setContent] = useState("");
   const [initialContent, setInitialContent] = useState<string | null>(null);
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
+  const [thumbnailPosition, setThumbnailPosition] = useState("50% 50%");
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState<{
@@ -43,6 +46,8 @@ export default function AdminEditPage() {
         setIsPinned(post.is_pinned);
         setContent(post.content);
         setInitialContent(post.content);
+        setThumbnailUrl(post.thumbnail_url || "");
+        setThumbnailPosition(post.thumbnail_position || "50% 50%");
       }
       setLoading(false);
     }
@@ -69,6 +74,8 @@ export default function AdminEditPage() {
       category_slug: categorySlug,
       content,
       is_pinned: isPinned,
+      thumbnail_url: thumbnailUrl || undefined,
+      thumbnail_position: thumbnailPosition,
     });
 
     setSaving(false);
@@ -319,6 +326,17 @@ export default function AdminEditPage() {
                 initialContent={initialContent}
               />
             )}
+
+            {/* 썸네일 선택 */}
+            <ThumbnailPicker
+              content={content}
+              thumbnailUrl={thumbnailUrl}
+              thumbnailPosition={thumbnailPosition}
+              onChange={(url, pos) => {
+                setThumbnailUrl(url);
+                setThumbnailPosition(pos);
+              }}
+            />
           </div>
         </div>
       </div>

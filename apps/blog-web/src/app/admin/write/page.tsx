@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import DynamicEditor from "@/components/DynamicEditor";
+import ThumbnailPicker from "@/components/ThumbnailPicker";
 import { savePost } from "./actions";
 
 const CATEGORIES = [
@@ -18,6 +19,8 @@ export default function AdminWritePage() {
   const [categorySlug, setCategorySlug] = useState("education");
   const [isPinned, setIsPinned] = useState(false);
   const [content, setContent] = useState("");
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
+  const [thumbnailPosition, setThumbnailPosition] = useState("50% 50%");
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{
     type: "success" | "error";
@@ -42,6 +45,8 @@ export default function AdminWritePage() {
       content,
       author_name: "관리자",
       is_pinned: isPinned,
+      thumbnail_url: thumbnailUrl || undefined,
+      thumbnail_position: thumbnailPosition,
     });
 
     setSaving(false);
@@ -274,6 +279,17 @@ export default function AdminWritePage() {
           {/* 에디터 영역 */}
           <div style={{ padding: "1.5rem 2.5rem 2.5rem" }}>
             <DynamicEditor onChange={setContent} />
+
+            {/* 썸네일 선택 */}
+            <ThumbnailPicker
+              content={content}
+              thumbnailUrl={thumbnailUrl}
+              thumbnailPosition={thumbnailPosition}
+              onChange={(url, pos) => {
+                setThumbnailUrl(url);
+                setThumbnailPosition(pos);
+              }}
+            />
           </div>
         </div>
       </div>

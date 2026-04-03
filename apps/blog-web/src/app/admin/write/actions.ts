@@ -64,12 +64,14 @@ interface SavePostInput {
   content: string;
   author_name: string;
   is_pinned: boolean;
+  thumbnail_url?: string;
+  thumbnail_position?: string;
 }
 
 export async function savePost(input: SavePostInput) {
   const blocks: BlockContent[] = JSON.parse(input.content);
 
-  const thumbnailUrl = extractFirstImage(blocks) || "";
+  const thumbnailUrl = input.thumbnail_url || extractFirstImage(blocks) || "";
 
   const { data: post, error: postError } = await supabase
     .from("posts")
@@ -79,6 +81,7 @@ export async function savePost(input: SavePostInput) {
       content: input.content,
       author_name: input.author_name,
       thumbnail_url: thumbnailUrl,
+      thumbnail_position: input.thumbnail_position || "50% 50%",
       is_pinned: input.is_pinned,
     })
     .select()
@@ -116,12 +119,14 @@ interface UpdatePostInput {
   category_slug: string;
   content: string;
   is_pinned: boolean;
+  thumbnail_url?: string;
+  thumbnail_position?: string;
 }
 
 export async function updatePost(input: UpdatePostInput) {
   const blocks: BlockContent[] = JSON.parse(input.content);
 
-  const thumbnailUrl = extractFirstImage(blocks) || "";
+  const thumbnailUrl = input.thumbnail_url || extractFirstImage(blocks) || "";
 
   const { data: post, error: postError } = await supabase
     .from("posts")
@@ -130,6 +135,7 @@ export async function updatePost(input: UpdatePostInput) {
       category_slug: input.category_slug,
       content: input.content,
       thumbnail_url: thumbnailUrl,
+      thumbnail_position: input.thumbnail_position || "50% 50%",
       is_pinned: input.is_pinned,
     })
     .eq("id", input.id)
